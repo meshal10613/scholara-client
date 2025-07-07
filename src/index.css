@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@plugin "daisyui"{
+    themes: light, dark, autumn, nord;
+}
+@plugin "daisyui/theme" {
+    name: "nord";
+    default: true;
+    --color-primary: #071952;
+    --color-secondary: #088395;
+    --color-accent: #37B7C3;
+    --color-base-100: #EBF4F6;
+}
+
+.navlink li a.active{
+    border: 2px solid #088395;
+    color: #EBF4F6;
+    border-radius: 24px;
+}
