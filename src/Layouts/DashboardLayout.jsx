@@ -1,9 +1,13 @@
-import React from 'react';
-import { FaBoxOpen, FaCheckCircle, FaHome, FaMoneyCheckAlt, FaMotorcycle, FaSearchLocation, FaTasks, FaUserCheck, FaUserClock, FaUserEdit, FaUserShield, FaWallet } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaClipboardList, FaComments, FaUserEdit, FaUsersCog } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router';
 import Logo from '../Components/Shared/Logo';
+import { MdManageSearch, MdPerson, MdPostAdd, MdRateReview } from 'react-icons/md';
+import { HiOutlineClipboardCheck } from 'react-icons/hi';
+import { RiFileSettingsLine, RiListCheck2 } from 'react-icons/ri';
 
 const DashboardLayout = () => {
+    const [dash, setDash] = useState("My Profile")
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -27,7 +31,7 @@ const DashboardLayout = () => {
                         </svg>
                         </label>
                     </div>
-                    <div className="mx-2 flex-1 px-2 md:hidden">Dashboard</div>
+                    <div className="mx-2 flex-1 px-2 md:hidden">{dash}</div>
                 </div>
                 {/* page content here */}
                 <Outlet/>
@@ -38,21 +42,66 @@ const DashboardLayout = () => {
                     <Logo/>
                     {/* Sidebar content here */}
                     <li>
-                        <NavLink to="/dashboard/my-profile">
-                            <FaUserEdit className="inline-block mr-2" />
+                        <NavLink to="/dashboard/my-profile" onClick={() => setDash("My Profile")}>
+                            <MdPerson className="inline-block mr-2" />
                             My Profile
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/my-application">
-                            <FaUserEdit className="inline-block mr-2" />
+                        <NavLink to="/dashboard/my-application" onClick={() => setDash("My Application")}>
+                            <FaClipboardList className="inline-block mr-2" />
                             My Application
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/my-reviews">
-                            <FaUserEdit className="inline-block mr-2" />
+                        <NavLink to="/dashboard/my-reviews" onClick={() => setDash("My Reviews")}>
+                            <MdRateReview className="inline-block mr-2" />
                             My Reviews
+                        </NavLink>
+                    </li>
+                    {/* moderator */}
+                    <li>
+                        <NavLink to="/dashboard/all-reviews" onClick={() => setDash("My Reviews")}>
+                            <FaComments className="inline-block mr-2" />
+                            All Reviews
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("My Reviews")}>
+                            <HiOutlineClipboardCheck className="inline-block mr-2" />
+                            All Applied Scholarship
+                        </NavLink>
+                    </li>
+                    {/* moderator & admin */}
+                    <li>
+                        <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("My Reviews")}>
+                            <MdPostAdd className="inline-block mr-2" />
+                            Add Scholarship
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("My Reviews")}>
+                            <RiFileSettingsLine className="inline-block mr-2" />
+                            Manage Scholarship
+                        </NavLink>
+                    </li>
+                    {/* admin */}
+                    <li>
+                        <NavLink to="/dashboard/manage-applied-application" onClick={() => setDash("My Reviews")}>
+                            <RiListCheck2 className="inline-block mr-2" />
+                            Manage Applied Application
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/manage-users" onClick={() => setDash("My Reviews")}>
+                            <FaUsersCog className="inline-block mr-2" />
+                            Manage Users
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/dashboard/manage-review" onClick={() => setDash("My Reviews")}>
+                            <MdManageSearch className="inline-block mr-2" />
+                            Manage Review
                         </NavLink>
                     </li>
                 </ul>

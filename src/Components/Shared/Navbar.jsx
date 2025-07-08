@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import Logo from './Logo';
 import useAuthContext from '../../Hooks/useAuthContext';
 import Swal from 'sweetalert2';
 
 const Navbar = () => {
     const {user, signOutUser} = useAuthContext();
+    const navigate = useNavigate();
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/all-scholarship">All Scholarship</NavLink></li>
@@ -32,6 +33,7 @@ const Navbar = () => {
                         icon: "success",
                         confirmButtonColor: "#088395"
                     });
+                    navigate("/");
                 })
                 .catch((error) => {
                     Swal.fire({
