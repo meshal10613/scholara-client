@@ -4,8 +4,11 @@ import Lottie from 'lottie-react';
 import { Link } from 'react-router';
 import Logo from '../../Components/Shared/Logo';
 import loginImg from '../../assets/register.json'
+import useAuthContext from '../../Hooks/useAuthContext';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+    const {loginUser, setUser} = useAuthContext();
     const {
         register,
         handleSubmit,
@@ -13,11 +16,27 @@ const Login = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log("Form Data:", data);
-        // You can add login logic here
+        const email = data.email;
+        const password = data.password;
+        
+        loginUser(email, password)
+        .then((res) => {
+            const user = res.user;
+            setUser(user);
+            const serverData = {
+                email,
+                lastSignInTime: new Date(user?.metadata?.lastSignInTime).toLocaleString()
+            };
+            console.log(serverData)
+        })
+        .catch((error) => {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: `${error.message}`,
+            });
+        })
     };
-    const date = new Date().toLocaleString();
-    console.log(date)
     return (
         <div className=''>
             <div className="flex items-center justify-center">

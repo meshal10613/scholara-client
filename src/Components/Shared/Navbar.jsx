@@ -9,7 +9,7 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to="/">Home</NavLink></li>
         <li><NavLink to="/all-scholarship">All Scholarship</NavLink></li>
-        <li><NavLink to="/dashboard">Dashboard</NavLink></li>
+        <li><NavLink to="/dashboard/my-profile">Dashboard</NavLink></li>
     </>;
 
     const handleLogOut = () => {
@@ -53,19 +53,14 @@ const Navbar = () => {
                 </div>
                 <ul
                     tabIndex={0}
-                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow navlink">
+                    className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow navlinksm">
                     {links}
                 </ul>
                 </div>
                 <Logo/>
             </div>
-            {/* <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1 navlink">
-                    {links}
-                </ul>
-            </div> */}
             <div className="navbar-end items-center gap-2">
-                <ul className="menu menu-horizontal px-1 navlink hidden md:flex">
+                <ul className="menu menu-horizontal px-1 navlinklg hidden md:flex">
                     {links}
                 </ul>
                 {

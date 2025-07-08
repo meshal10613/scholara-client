@@ -11,8 +11,31 @@
     --color-base-100: #EBF4F6;
 }
 
-.navlink li a.active{
+.navlinksm li a.active{
+    color: #EBF4F6;
+    border-radius: 24px;
+    background-color: #071952;
+}
+
+.navlinklg li a.active{
     border: 2px solid #088395;
+    color: #EBF4F6;
+    border-radius: 24px;
+    background-color: #071952;
+}
+
+.footlink li a.active{
+    background-color: #088395;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: #EBF4F6;
+    border-radius: 24px;
+}
+
+.dashlink li a.active{
+    background-color: #088395;
     color: #EBF4F6;
     border-radius: 24px;
 }
