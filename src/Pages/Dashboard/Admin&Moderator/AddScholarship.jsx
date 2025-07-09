@@ -16,6 +16,7 @@ const AddScholarship = () => {
     const onSubmit = async(data) => {
         const serverData = {
             ...data,
+            rating: 0,
             applicationDeadline: new Date(data.date).toDateString(),
             postDate: new Date().toDateString()
         };
