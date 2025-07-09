@@ -1,18 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAuthContext from '../../../Hooks/useAuthContext';
+import useAxios from '../../../Hooks/useAxios';
+import Swal from 'sweetalert2';
 
 const AddScholarship = () => {
     const {user} = useAuthContext();
+    const axiosInstance = useAxios();
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // You can send data to your backend here
+    const onSubmit = async(data) => {
+        const serverData = {
+            ...data,
+            applicationDeadline: new Date(data.date).toDateString(),
+            postDate: new Date().toDateString()
+        };
+
+        const application = await axiosInstance.post("/scholarships", serverData);
+        if(application.data.insertedId){
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations!",
+                text: `Scholarship added successfully`,
+            });
+        };
     };
 
     return (
@@ -53,9 +68,26 @@ const AddScholarship = () => {
                     <div>
                     <select {...register('subjectCategory', { required: 'Subject Category is required' })} className="select select-bordered w-full">
                         <option value="">Select Subject Category</option>
-                        <option value="Agriculture">Agriculture</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Doctor">Doctor</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Business Administration">Business Administration</option>
+                        <option value="Accounting">Accounting</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Economics">Economics</option>
+                        <option value="Psychology">Psychology</option>
+                        <option value="Sociology">Sociology</option>
+                        <option value="English">English</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Physics">Physics</option>
+                        <option value="Chemistry">Chemistry</option>
+                        <option value="Biology">Biology</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Law">Law</option>
+                        <option value="Education">Education</option>
+                        <option value="Architecture">Architecture</option>
                     </select>
                     {errors.subjectCategory && <p className="text-red-500 text-sm mt-1">{errors.subjectCategory.message}</p>}
                     </div>
@@ -89,22 +121,26 @@ const AddScholarship = () => {
                     {errors.applicationFees && <p className="text-red-500 text-sm mt-1">{errors.applicationFees.message}</p>}
                     </div>
 
-                    <div>
-                    <input placeholder="Service Charge" {...register('serviceCharge', { required: 'Service Charge is required' })} className="input input-bordered w-full" />
-                    {errors.serviceCharge && <p className="text-red-500 text-sm mt-1">{errors.serviceCharge.message}</p>}
+                    <div className="">
+                    <input placeholder="Stipend (Optional)" {...register('stipend')} className="input input-bordered w-full" />
                     </div>
 
+                    {/* <div>
+                    <input placeholder="Service Charge" {...register('serviceCharge', { required: 'Service Charge is required' })} className="input input-bordered w-full" />
+                    {errors.serviceCharge && <p className="text-red-500 text-sm mt-1">{errors.serviceCharge.message}</p>}
+                    </div> */}
+
                     <div>
-                    <input type="date" placeholder="Application Deadline" {...register('applicationDeadline', { required: 'Application Deadline is required' })} className="input input-bordered w-full" />
+                    <input type="date" placeholder="Application Deadline" {...register('date', { required: 'Application Deadline is required' })} className="input input-bordered w-full" />
                     {errors.applicationDeadline && <p className="text-red-500 text-sm mt-1">{errors.applicationDeadline.message}</p>}
                     </div>
 
-                    <div>
+                    {/* <div>
                     <input type="date" placeholder="Scholarship Post Date" {...register('postDate', { required: 'Post Date is required' })} className="input input-bordered w-full" />
                     {errors.postDate && <p className="text-red-500 text-sm mt-1">{errors.postDate.message}</p>}
-                    </div>
+                    </div> */}
 
-                    <div>
+                    <div className='md:col-span-2'>
                     <input placeholder="Posted User Email" value={user?.email} readOnly type="email" {...register('postedEmail', { required: 'Email is required' })} className="input input-bordered w-full" />
                     {errors.postedEmail && <p className="text-red-500 text-sm mt-1">{errors.postedEmail.message}</p>}
                     </div>
