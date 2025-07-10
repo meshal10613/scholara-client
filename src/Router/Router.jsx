@@ -13,6 +13,8 @@ import PrivetRoute from '../Router/PrivetRoute';
 import AllReviews from "../Pages/Dashboard/Moderator/AllReviews";
 import AllAppliedScholarship from "../Pages/Dashboard/Moderator/AllAppliedScholarship";
 import AddScholarship from "../Pages/Dashboard/Admin&Moderator/AddScholarship";
+import ScholarshipDetails from "../Pages/Home/ScholarshipDetails";
+import ManageScholarships from "../Pages/Dashboard/Admin&Moderator/ManageScholarships";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: "/all-scholarship",
                 element: <AllScholarship/>
+            },
+            {
+                path: "/scholarshipDetails/:id",
+                element: <PrivetRoute><ScholarshipDetails/></PrivetRoute>
             }
         ]
     },
@@ -68,7 +74,8 @@ export const router = createBrowserRouter([
                 element: <AddScholarship/>
             },
             {
-                path: "manage-scholarships" //moderator & admin
+                path: "manage-scholarships", //moderator & admin
+                element: <ManageScholarships/>
             },
             // admin
             {

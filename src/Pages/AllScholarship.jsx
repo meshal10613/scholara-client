@@ -2,12 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import useAxios from '../Hooks/useAxios';
 import Loading from '../Components/Loading';
+import { Link } from 'react-router';
 
 const AllScholarship = () => {
     const [search, setSearch] = useState("");
     const axiosInstance = useAxios();
-    const {data: scholarship = [], isLoading} = useQuery({
-        queryKey: ["my-profile"],
+    const {data: scholarships = [], isLoading} = useQuery({
+        queryKey: ["scholarships"],
         queryFn: async() => {
             const res = await axiosInstance.get(`/scholarships`);
             return res.data;
@@ -45,10 +46,10 @@ const AllScholarship = () => {
 
         {/* Scholarships Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 mx-5 md:mx-0">
-            {scholarship.length === 0 ? (
+            {scholarships.length === 0 ? (
             <p className="text-center col-span-full">No scholarships found.</p>
             ) : (
-            scholarship.map((sch) => (
+            scholarships.map((sch) => (
                 <div key={sch?._id} className="border-2 border-primary rounded-xl p-4 shadow hover:shadow-md transition duration-300">
                 <div className="flex flex-col items-center">
                     <img src={sch?.universityImage} referrerPolicy='no-referrer' alt={sch?.universityName} className="w-fit h-40 object-contain rounded-xl" />
@@ -62,11 +63,11 @@ const AllScholarship = () => {
                 <p><strong>Application Fees:</strong> {sch?.applicationFees}</p>
                 <p><strong>Rating:</strong> ⭐ {sch?.rating}</p>
 
-                <button
+                <Link to={`/scholarshipDetails/${sch?._id}`}
                     className="btn btn-block mt-4 border-none bg-secondary text-base-100"
                 >
                     Scholarship Details
-                </button>
+                </Link>
                 </div>
             ))
             )}

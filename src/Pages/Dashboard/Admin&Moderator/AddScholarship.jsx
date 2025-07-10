@@ -46,7 +46,7 @@ const AddScholarship = () => {
                     {errors.universityName && <p className="text-red-500 text-sm mt-1">{errors.universityName.message}</p>}
                     </div>
 
-                    <div className="md:col-span-2">
+                    <div className='col-span-2'>
                     <input placeholder="University Logo/Image URL" {...register('universityImage', { required: 'University Image URL is required' })} className="input input-bordered w-full" />
                     {errors.universityImage && <p className="text-red-500 text-sm mt-1">{errors.universityImage.message}</p>}
                     </div>
@@ -140,6 +140,11 @@ const AddScholarship = () => {
                     <input type="date" placeholder="Scholarship Post Date" {...register('postDate', { required: 'Post Date is required' })} className="input input-bordered w-full" />
                     {errors.postDate && <p className="text-red-500 text-sm mt-1">{errors.postDate.message}</p>}
                     </div> */}
+
+                    <div className='md:col-span-2'>
+                    <input placeholder="Scholarship Description" type="text" {...register('scholarshipDescription', { required: 'Scholarship Description is required' })} className="input input-bordered w-full" />
+                    {errors.scholarshipDescription && <p className="text-red-500 text-sm mt-1">{errors.scholarshipDescription.message}</p>}
+                    </div>
 
                     <div className='md:col-span-2'>
                     <input placeholder="Posted User Email" value={user?.email} readOnly type="email" {...register('postedEmail', { required: 'Email is required' })} className="input input-bordered w-full" />
