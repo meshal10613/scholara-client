@@ -18,7 +18,6 @@ const scholarshipshipDetails = () => {
     if(isLoading){
         return <Loading/>;
     };
-    console.log(scholarship)
     return (
         <div>
             <div>

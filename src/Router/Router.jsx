@@ -15,6 +15,7 @@ import AllAppliedScholarship from "../Pages/Dashboard/Moderator/AllAppliedSchola
 import AddScholarship from "../Pages/Dashboard/Admin&Moderator/AddScholarship";
 import ScholarshipDetails from "../Pages/Home/ScholarshipDetails";
 import ManageScholarships from "../Pages/Dashboard/Admin&Moderator/ManageScholarships";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 
 export const router = createBrowserRouter([
     {
@@ -47,6 +48,7 @@ export const router = createBrowserRouter([
     {
         path: "/dashboard",
         element: <PrivetRoute><DashboardLayout/></PrivetRoute>,
+        errorElement: <ErrorPage/>,
         children: [
             {
                 path: "my-profile",
@@ -82,7 +84,8 @@ export const router = createBrowserRouter([
                 path: "manage-applied-application",
             },
             {
-                path: "manage-users"
+                path: "manage-users",
+                element: <ManageUsers/>
             },
             {
                 path: "manage-review"

@@ -61,45 +61,45 @@ const DashboardLayout = () => {
                     </li>
                     {/* moderator */}
                     <li>
-                        <NavLink to="/dashboard/all-reviews" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/all-reviews" onClick={() => setDash("All Reviews")}>
                             <FaComments className="inline-block mr-2" />
                             All Reviews
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("All Applied Scholarship")}>
                             <HiOutlineClipboardCheck className="inline-block mr-2" />
                             All Applied Scholarship
                         </NavLink>
                     </li>
                     {/* moderator & admin */}
                     <li>
-                        <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("Add Scholarship")}>
                             <MdPostAdd className="inline-block mr-2" />
                             Add Scholarship
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("Manage Scholarship")}>
                             <RiFileSettingsLine className="inline-block mr-2" />
                             Manage Scholarship
                         </NavLink>
                     </li>
                     {/* admin */}
                     <li>
-                        <NavLink to="/dashboard/manage-applied-application" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/manage-applied-application" onClick={() => setDash("Manage Applied Application")}>
                             <RiListCheck2 className="inline-block mr-2" />
                             Manage Applied Application
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/manage-users" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/manage-users" onClick={() => setDash("Manage Users")}>
                             <FaUsersCog className="inline-block mr-2" />
                             Manage Users
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/dashboard/manage-review" onClick={() => setDash("My Reviews")}>
+                        <NavLink to="/dashboard/manage-review" onClick={() => setDash("Manage Review")}>
                             <MdManageSearch className="inline-block mr-2" />
                             Manage Review
                         </NavLink>

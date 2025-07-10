@@ -38,7 +38,7 @@ const Register = () => {
                 photoURL: profilePic
             };
             const serverData = {
-                name,
+                displayName: name,
                 email,
                 role: "user",
                 creationTime,
