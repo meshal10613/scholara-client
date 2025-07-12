@@ -1,19 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuthContext from '../../../Hooks/useAuthContext';
 import useAxios from '../../../Hooks/useAxios';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const AddScholarship = () => {
+    const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+    const [uploading, setUploading] = useState(false);
     const {user} = useAuthContext();
     const axiosInstance = useAxios();
     const {
         register,
         handleSubmit,
+        watch,
+        setError,
+        clearErrors,
         formState: { errors },
     } = useForm();
 
+    const imageFile = watch("universityImage");
+
+    // 🔺 Upload to imgbb
+    const handleImageUpload = async () => {
+        const file = imageFile?.[0];
+        if (!file) {
+            setError("universityImage", { type: "manual", message: "Please select a file first." });
+            return;
+        }
+
+        clearErrors("universityImage");
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        setUploading(true);
+        try {
+        const uploadKey = import.meta.env.VITE_imgbb_apikey;
+        const res = await axios.post(
+            `https://api.imgbb.com/1/upload?key=${uploadKey}`,
+            formData,
+            {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            }
+        );
+
+        setUploadedImageUrl(res.data.data.url);
+        } catch (err) {
+        console.error("Image upload failed:", err);
+        } finally {
+        setUploading(false);
+        }
+    };
+
     const onSubmit = async(data) => {
+        if (!uploadedImageUrl) {
+            setError("universityImage", {
+                type: "manual",
+                message: "Please upload the image before submitting the form.",
+            });
+            return;
+        }
+        data.universityImage = uploadedImageUrl;
         const serverData = {
             ...data,
             rating: 0,
@@ -35,6 +85,11 @@ const AddScholarship = () => {
         <div className='mx-5 my-5'>
             <div className="mx-auto w-full max-w-6xl p-4 bg-white shadow-2xl rounded-2xl mt-6">
                 <h2 className="text-2xl font-bold mb-6 text-primary text-center">Add Scholarship</h2>
+                {uploadedImageUrl && (
+                    <div className="w-fit mx-auto">
+                        <img src={uploadedImageUrl} alt="Preview" className="w-98 my-4 border border-secondary shadow" />
+                    </div>
+                )}
                 <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                     <input placeholder="Scholarship Name" {...register('scholarshipName', { required: 'Scholarship Name is required' })} className="input input-bordered w-full" />
@@ -46,9 +101,30 @@ const AddScholarship = () => {
                     {errors.universityName && <p className="text-red-500 text-sm mt-1">{errors.universityName.message}</p>}
                     </div>
 
-                    <div className='col-span-2'>
-                    <input placeholder="University Logo/Image URL" {...register('universityImage', { required: 'University Image URL is required' })} className="input input-bordered w-full" />
-                    {errors.universityImage && <p className="text-red-500 text-sm mt-1">{errors.universityImage.message}</p>}
+                    {/* File Input */}
+                    <div className='md:col-span-2'>
+                        <div className='flex items-center gap-2'>
+                            <div className='flex-1'>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    {...register("universityImage", { required: "Please select an image" })}
+                                    className="file-input file-input-md w-full"
+                                />
+                                {errors.universityImage && (
+                                    <p className="text-red-500 text-sm mt-1">{errors.universityImage.message}</p>
+                                )}
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={handleImageUpload}
+                                className="btn btn-secondary text-base-100"
+                                disabled={uploading}
+                            >
+                                {uploading ? "Uploading..." : "Upload Image"}
+                            </button>
+                        </div>
                     </div>
 
                     <div>
