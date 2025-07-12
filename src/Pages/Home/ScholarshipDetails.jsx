@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../../Components/Loading';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
@@ -55,7 +55,7 @@ const scholarshipshipDetails = () => {
                         </div>
 
                         <div className="card-actions mt-6">
-                            <button className="btn btn-block border-none bg-secondary text-base-100">Apply scholarship</button>
+                            <Link to={`/applyScholarship/${scholarship._id}`} className="btn btn-block border-none bg-secondary text-base-100">Apply scholarship</Link>
                         </div>
                         </div>
                     </div>

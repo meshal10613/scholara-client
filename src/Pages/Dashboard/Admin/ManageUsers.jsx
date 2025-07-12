@@ -6,8 +6,10 @@ import { FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import errorLogo from '../../../assets/error.json';
 import Lottie from 'lottie-react';
+import useAuthContext from '../../../Hooks/useAuthContext';
 
 const ManageUsers = () => {
+    const {deleteCurrentUser} = useAuthContext();
     const [filterRole, setFilterRole] = useState("");
     const axiosInstance = useAxiosSecure();
     const { data: users = [], isLoading, refetch } = useQuery({
@@ -35,6 +37,41 @@ const ManageUsers = () => {
         } catch (error) {
             Swal.fire("Error", "Failed to update role", error.message);
         }
+    };
+
+    const handleDelete = (id) => {
+        Swal.fire({
+        title: "Are you sure?",
+        text: "Delete this user account permanently?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete!",
+        confirmButtonColor: "#d33",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+        try {
+            const res = await axiosInstance.delete(`/users/${id}`);
+            if (res.data.deletedCount) {
+                deleteCurrentUser()
+                .then(() => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "User has been deleted",
+                        icon: "success",
+                        confirmButtonColor: "#088395"
+                    });
+                    refetch();
+                })
+                .then(() => {
+                    Swal.fire("Error", "Something went wrong.", "error");
+                })
+            }
+        } catch (err) {
+            console.error(err);
+            Swal.fire("Error", "Something went wrong.", "error");
+        }
+        }
+    });
     };
 
     return (
@@ -91,7 +128,7 @@ const ManageUsers = () => {
                             </td>
                             <td>
                             <button
-                                // onClick={() => handleDelete(user._id)}
+                                onClick={() => handleDelete(user._id)}
                                 className="btn btn-sm btn-error text-white"
                             >
                                 <FaTrashAlt />

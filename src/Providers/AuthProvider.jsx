@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { 
     createUserWithEmailAndPassword, 
+    deleteUser, 
     GoogleAuthProvider, 
     onAuthStateChanged, 
     signInWithEmailAndPassword, 
@@ -51,7 +52,11 @@ const AuthProvider = ({children}) => {
 
     const signOutUser = () => {
         return signOut(auth);
-    }
+    };
+
+    const deleteCurrentUser = () => {
+        return deleteUser(auth.currentUser)
+    };
 
     const authData = {
         user,
@@ -62,7 +67,8 @@ const AuthProvider = ({children}) => {
         updateUserProfile,
         signOutUser,
         loginUser,
-        loginWithGoogle
+        loginWithGoogle,
+        deleteCurrentUser
     };
 
     return (
