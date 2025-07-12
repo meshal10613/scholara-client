@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Components/Loading';
 import { FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 const ManageScholarships = () => {
+    const [selected, setSelected] = useState(null);
     const axiosInstance = useAxiosSecure();
     const { data: manage = [], isLoading, refetch } = useQuery({
         queryKey: ["manage"],
@@ -46,6 +48,13 @@ const ManageScholarships = () => {
         });
     };
 
+    const openDetails = (scholarship) => {
+        setSelected(scholarship);
+        document.getElementById("scholarshipModal").showModal();
+    };
+
+    const closeDetails = () => setSelected(null);
+
     return (
         <div>
             <div className="mx-auto p-4">
@@ -74,12 +83,12 @@ const ManageScholarships = () => {
                             <td>{scholarship?.degree}</td>
                             <td>${scholarship?.applicationFees || "N/A"}</td>
                             <td className="flex gap-2">
-                            <button className="btn btn-sm btn-info text-white tooltip" data-tip="Details">
+                            <button onClick={() => openDetails(scholarship)} className="btn btn-sm btn-info text-white tooltip" data-tip="Details">
                                 <FaEye />
                             </button>
-                            <button className="btn btn-sm btn-warning text-white tooltip" data-tip="Edit">
+                            <Link to={`/dashboard/manage-scholarships/${scholarship._id}`} className="btn btn-sm btn-warning text-white tooltip" data-tip="Edit">
                                 <FaEdit />
-                            </button>
+                            </Link>
                             <button onClick={() => handleDelete(scholarship?._id)} className="btn btn-sm btn-error text-white tooltip" data-tip="Delete">
                                 <FaTrashAlt />
                             </button>
@@ -90,6 +99,73 @@ const ManageScholarships = () => {
                     </table>
                 </div>
             </div>
+
+             {/* ---------- DaisyUI Modal ---------- */}
+            <dialog id="scholarshipModal" className="modal">
+                <form method="dialog" className="modal-box max-w-2xl">
+                <button
+                    onClick={closeDetails}
+                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >
+                    ✕
+                </button>
+
+                {selected && (
+                    <div className="space-y-2">
+                    <h3 className="text-xl font-bold mb-2">{selected.scholarshipName}</h3>
+
+                    {selected.universityImage && (
+                        <img
+                        src={selected.universityImage}
+                        alt={selected.universityName}
+                        className="mt-4 w-full rounded shadow"
+                        />
+                    )}
+
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                        <p>
+                        <span className="font-medium">University:</span> {selected.universityName}
+                        </p>
+                        <p>
+                        <span className="font-medium">Country:</span> {selected.universityCountry}
+                        </p>
+                        <p>
+                        <span className="font-medium">City:</span> {selected.universityCity}
+                        </p>
+                        <p>
+                        <span className="font-medium">World Rank:</span> {selected.universityRank}
+                        </p>
+                        <p>
+                        <span className="font-medium">Subject Category:</span> {selected.subjectCategory}
+                        </p>
+                        <p>
+                        <span className="font-medium">Degree:</span> {selected.degree}
+                        </p>
+                        <p>
+                        <span className="font-medium">Scholarship Category:</span>{" "}
+                        {selected.scholarshipCategory}
+                        </p>
+                        <p>
+                        <span className="font-medium">Tuition Fee:</span>{" "}
+                        {selected.tuitionFees ? `$${selected.tuitionFees}` : "N/A"}
+                        </p>
+                        <p>
+                        <span className="font-medium">Application Fees:</span>{" "}
+                        {selected.applicationFees ? `$${selected.applicationFees}` : "N/A"}
+                        </p>
+                        <p>
+                        <span className="font-medium">Stipend:</span>{" "}
+                        {selected.stipend ? `$${selected.stipend}` : "N/A"}
+                        </p>
+                        <p className="col-span-2">
+                        <span className="font-medium">Application Deadline:</span>{" "}
+                        {selected.applicationDeadline}
+                        </p>
+                    </div>
+                    </div>
+                )}
+                </form>
+            </dialog>
         </div>
     );
 };
