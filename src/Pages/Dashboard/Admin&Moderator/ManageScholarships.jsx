@@ -8,11 +8,11 @@ import { Link } from 'react-router';
 
 const ManageScholarships = () => {
     const [selected, setSelected] = useState(null);
-    const axiosInstance = useAxiosSecure();
+    const AxiosSecure = useAxiosSecure();
     const { data: manage = [], isLoading, refetch } = useQuery({
         queryKey: ["manage"],
         queryFn: async() => {
-            const res = await axiosInstance.get(`/scholarships`);
+            const res = await AxiosSecure.get(`/scholarships`);
             return res.data;
         }
     });
@@ -34,7 +34,7 @@ const ManageScholarships = () => {
         .then(async(result) => {
             if (result.isConfirmed) {
                 try {
-                const res = await axiosInstance.delete(`http://localhost:3000/scholarships/${id}`);
+                const res = await AxiosSecure.delete(`http://localhost:3000/scholarships/${id}`);
                 if (res.data.deletedCount === 1 || res.data.message === "Scholarship deleted successfully") {
                     Swal.fire("Deleted!", "The scholarship has been deleted.", "success");
                     refetch(); // ⏬ Refetch after delete
