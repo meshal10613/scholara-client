@@ -18,6 +18,7 @@ import ManageScholarships from "../Pages/Dashboard/Admin&Moderator/ManageScholar
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import EditScholarship from "../Pages/Dashboard/Admin&Moderator/EditScholarship";
 import ApplyScholarship from "../Pages/Home/ApplyScholarship";
+import EditMyApplication from "../Pages/Dashboard/EditMyApplication";
 
 export const router = createBrowserRouter([
     {
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
             {
                 path: "my-application",
                 element: <MyApplication/>
+            },
+            {
+                path: "my-application/:id",
+                element: <EditMyApplication/>
             },
             {
                 path: "my-reviews",

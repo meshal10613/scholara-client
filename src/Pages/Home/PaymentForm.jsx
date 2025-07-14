@@ -101,6 +101,10 @@ const PaymentForm = ({ scholarship, id}) => {
             if(result.paymentIntent.status === 'succeeded'){
                 const serverData = {
                     ...data,
+                    universityCity: scholarship.universityCity,
+                    universityCountry: scholarship.universityCountry,
+                    applicationFees: scholarship.applicationFees,
+                    serviceCharge: scholarship.serviceCharge,
                     applicantPhotoURL: uploadedImageUrl,
                     userName: user?.displayName,
                     userEmail: user?.email,
