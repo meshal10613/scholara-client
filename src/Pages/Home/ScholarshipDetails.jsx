@@ -3,6 +3,7 @@ import Loading from '../../Components/Loading';
 import { Link, useParams } from 'react-router';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
+import useScholarshipRating from '../../Hooks/useScholarshipRating';
 
 const scholarshipshipDetails = () => {
     const {id} = useParams();
@@ -14,8 +15,9 @@ const scholarshipshipDetails = () => {
             return res.data;
         }
     });
+    const {data} = useScholarshipRating(scholarship._id);
 
-    if(isLoading){
+    if(isLoading || !data){
         return <Loading/>;
     };
     return (
@@ -42,10 +44,11 @@ const scholarshipshipDetails = () => {
                             <p className="text-lg"><span className="font-semibold">🕓 Posted:</span> {scholarship?.postDate}</p>
                             </div>
                             <div>
-                            {scholarship?.stipend && <p className="text-lg"><span className="font-semibold">💰 Stipend:</span> {scholarship?.stipend}</p>}
-                            <p className="text-lg"><span className="font-semibold">💳 Application Fees:</span> 
-                            {`${scholarship?.applicationFees}` || "None"}</p>
-                            <p className="text-lg"><span className="font-semibold">🔧 Service Charge:</span> {scholarship?.serviceCharge || "No charge"}</p>
+                                {scholarship?.stipend && <p className="text-lg"><span className="font-semibold">💰 Stipend:</span> {scholarship?.stipend}</p>}
+                                <p className="text-lg"><span className="font-semibold">💳 Application Fees:</span> 
+                                {`${scholarship?.applicationFees}` || "None"}</p>
+                                <p className="text-lg"><span className="font-semibold">🔧 Service Charge:</span> {scholarship?.serviceCharge || "No charge"}</p>
+                                <p className='text-lg'><span className="font-semibold">⭐ Rating</span> {data.averageRating}</p>
                             </div>
                         </div>
 
