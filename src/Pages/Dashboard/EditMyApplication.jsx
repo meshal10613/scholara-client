@@ -7,11 +7,11 @@ import axios from 'axios';
 
 const EditMyApplication = () => {
     const {id} = useParams();
-    const AxiosSecure = useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
     const { data: editApplication = {}, isLoading } = useQuery({
         queryKey: ["editApplication"],
         queryFn: async() => {
-            const res = await AxiosSecure.get(`/appliedScholarships/${id}`);
+            const res = await axiosSecure.get(`/appliedScholarships/${id}`);
             return res.data;
         }
     });

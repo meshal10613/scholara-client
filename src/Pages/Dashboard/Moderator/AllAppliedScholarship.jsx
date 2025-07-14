@@ -149,7 +149,7 @@ const AllAppliedScholarship = () => {
 
             {selected && (
             <div className="space-y-2">
-                <h3 className="text-xl font-bold mb-2">{selected.universityName}</h3>
+                <h3 className="text-xl font-bold mb-2">{selected.scholarshipName}</h3>
 
                 {selected?.applicantPhotoURL && (
                     <img
@@ -161,26 +161,26 @@ const AllAppliedScholarship = () => {
 
                 <div className="grid grid-cols-2 gap-4 text-sm">
                     <p>
-                    <span className="font-medium">Scholarship:</span> {selected.scholarshipCategory}
+                    <span className="font-medium">University Name:</span>{" "}
+                    {selected.universityName}
                     </p>
                     <p>
                     <span className="font-medium">Applicant Phone Number:</span> {selected.applicantPhoneNumber}
                     </p>
                     <p>
-                    <span className="font-medium">subject:</span> {selected.subject}
+                    <span className="font-medium">Scholarship:</span> {selected.scholarshipCategory}
                     </p>
                     <p>
                     <span className="font-medium">Applicant Gender:</span> {selected.applicantGender}
                     </p>
                     <p>
-                    <span className="font-medium">Applying Degree:</span> {selected.applyingDegree}
+                    <span className="font-medium">subject:</span> {selected.subject}
                     </p>
                     <p>
                     <span className="font-medium">SSC Result:</span> {selected.sscResult}
                     </p>
                     <p>
-                    <span className="font-medium">Application Status:</span>{" "}
-                    {selected.applicationStatus}
+                    <span className="font-medium">Applying Degree:</span> {selected.applyingDegree}
                     </p>
                     <p>
                     <span className="font-medium">HSC Result:</span>{" "}
@@ -192,7 +192,7 @@ const AllAppliedScholarship = () => {
                     </p>
                     <p>
                     <span className="font-medium">Study Gap:</span>{" "}
-                    {selected.studyGap ? `$${selected.studyGap}` : "N/A"}
+                    {selected.studyGap ? `${selected.studyGap}` : "N/A"}
                     </p>
                     <p className="col-span-2">
                     <span className="font-medium">Address:</span>{" "}
