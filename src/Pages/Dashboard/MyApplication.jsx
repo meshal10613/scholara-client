@@ -49,6 +49,7 @@ const MyApplication = () => {
         const serverData = {
             ...data,
             reviewDate: new Date().toLocaleDateString(),
+            subject: selected?.subject,
             scholarshipName: selected?.scholarshipName,
             universityName: selected?.universityName,
             scholarshipId: selected?.scholarshipId,

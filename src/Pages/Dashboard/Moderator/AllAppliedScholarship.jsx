@@ -13,7 +13,7 @@ const AllAppliedScholarship = () => {
     const [modal, setModal] = useState([]);
     const [feedback, setFeedback] = useState("");
     const axiosSecure = useAxiosSecure();
-    const { data: appliedScholarships = [], isLoading } = useQuery({
+    const { data: appliedScholarships = [], isLoading, refetch } = useQuery({
         queryKey: ["manage"],
         queryFn: async() => {
             const res = await axiosSecure.get(`/appliedScholarships`);
@@ -66,6 +66,19 @@ const AllAppliedScholarship = () => {
 
     const closeDetails = () => setSelected(null);
 
+    const handleCancel = async(data) => {
+        const userRes = await axiosSecure.patch(`/appliedScholarships/${data}`);
+        if(userRes.data.modifiedCount){
+            refetch();
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations!",
+                text: `Scholarship cancel successfully`,
+                confirmButtonColor: "#088395",
+            });
+        }
+    };
+
     return (
     <div>
         <div>
@@ -101,7 +114,7 @@ const AllAppliedScholarship = () => {
                             <Link onClick={() => {handleFeedback(scholarship)}} className="btn btn-sm btn-warning text-white tooltip" data-tip="Feedback">
                                 <MdFeedback />
                             </Link>
-                            <button className="btn btn-sm btn-error text-white tooltip" data-tip="Cancel">
+                            <button onClick={() => handleCancel(scholarship._id)} className="btn btn-sm btn-error text-white tooltip" data-tip="Cancel" disabled={scholarship?.applicationStatus === "rejected" ? true : false}>
                                 <MdCancel />
                             </button>
                             </td>

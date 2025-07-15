@@ -3,7 +3,7 @@ import Loading from '../../Components/Loading';
 import { Link, useParams } from 'react-router';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
-import useScholarshipRating from '../../Hooks/useScholarshipRating';
+import useScholarshipRating from '../../Hooks/useScholarshipRating'
 
 const scholarshipshipDetails = () => {
     const {id} = useParams();
