@@ -29,19 +29,19 @@ const ManageScholarships = () => {
             showCancelButton: true,
             confirmButtonColor: "#088395",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, logout!",
+            confirmButtonText: "Yes, delete!",
         })
         .then(async(result) => {
             if (result.isConfirmed) {
                 try {
-                const res = await axiosSecure.delete(`http://localhost:3000/scholarships/${id}`);
-                if (res.data.deletedCount === 1 || res.data.message === "Scholarship deleted successfully") {
+                const res = await axiosSecure.delete(`/scholarships/${id}`);
+                if(res.data.deletedCount === 1 || res.data.message === "Scholarship deleted successfully") {
                     Swal.fire("Deleted!", "The scholarship has been deleted.", "success");
                     refetch(); // ⏬ Refetch after delete
-                } else {
+                }else {
                     Swal.fire("Not Found", "Scholarship not found.", "error");
                 }
-                } catch (error) {
+                }catch (error) {
                     Swal.fire("Error", "Failed to delete scholarship.", error.message);
                 }
             }

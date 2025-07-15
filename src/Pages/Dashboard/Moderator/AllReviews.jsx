@@ -19,16 +19,30 @@ const AllReviews = () => {
     };
 
     const deleteReview = async(id) => {
-        const res = await axiosSecure.delete(`/reviews/${id}`);
-        if(res.data.deletedCount){
-            refetch();
-            Swal.fire({
-                icon: "success",
-                title: "Congratulations!",
-                text: `Review deleted successfully`,
-                confirmButtonColor: "#088395",
-            });
-        };
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Delete this review?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#088395",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete!",
+        })
+        .then(async(result) => {
+            if (result.isConfirmed) {
+                try {
+                const res = await axiosSecure.delete(`http://localhost:3000/reviews/${id}`);
+                if(res.data.deletedCount === 1 || res.data.message === "Scholarship deleted successfully") {
+                    refetch(); // ⏬ Refetch after delete
+                    Swal.fire("Deleted!", "The review has been deleted.", "success");
+                }else {
+                    Swal.fire("Not Found", "Scholarship not found.", "error");
+                }
+                }catch (error) {
+                    Swal.fire("Error", "Failed to delete scholarship.", error.message);
+                }
+            }
+        });
     };
 
     return (
@@ -38,7 +52,7 @@ const AllReviews = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                     {allReviews.map((review) => (
-                    <div key={review._id} className="bg-white shadow-md rounded-xl p-4 space-y-3 max-w-88 mx-auto">
+                    <div key={review._id} className="bg-white shadow-md rounded-xl p-4 space-y-3 w-88 mx-auto">
                         <img
                             src={review?.userImage}
                             alt="Reviewer"
