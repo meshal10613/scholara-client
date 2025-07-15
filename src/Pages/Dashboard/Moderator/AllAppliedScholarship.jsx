@@ -67,16 +67,30 @@ const AllAppliedScholarship = () => {
     const closeDetails = () => setSelected(null);
 
     const handleCancel = async(data) => {
-        const userRes = await axiosSecure.patch(`/appliedScholarships/${data}`);
-        if(userRes.data.modifiedCount){
-            refetch();
-            Swal.fire({
-                icon: "success",
-                title: "Congratulations!",
-                text: `Scholarship cancel successfully`,
-                confirmButtonColor: "#088395",
-            });
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Cancel this review?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#088395",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Cancel!",
+        })
+        .then(async(result) => {
+            if (result.isConfirmed) {
+                try {
+                const res = await axiosSecure.patch(`/appliedScholarships/${data}`);
+                if(res.data.modifiedCount === 1 || res.data.message === "Scholarship deleted successfully") {
+                    refetch(); // ⏬ Refetch after delete
+                    Swal.fire("Canceled!", "Scholarship canceled successfully", "success");
+                }else {
+                    Swal.fire("Not Found", "Scholarship not found.", "error");
+                }
+                }catch (error) {
+                    Swal.fire("Error", "Failed to delete scholarship.", error.message);
+                }
+            }
+        });
     };
 
     return (

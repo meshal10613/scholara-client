@@ -46,7 +46,8 @@ const ManageUsers = () => {
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Yes, delete!",
-        confirmButtonColor: "#d33",
+        confirmButtonColor: "#088395",
+        cancelButtonColor: "#d33",
     }).then(async (result) => {
         if (result.isConfirmed) {
         try {

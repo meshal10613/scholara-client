@@ -4,18 +4,21 @@ import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import Loading from '../../Components/Loading';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const EditMyApplication = () => {
+    const [uploadedImageUrl, setUploadedImageUrl] = useState("");
     const {id} = useParams();
+    const { register, handleSubmit } = useForm();
     const axiosSecure = useAxiosSecure();
-    const { data: editApplication = {}, isLoading } = useQuery({
+    const { data: editApplication = {}, isLoading, refetch } = useQuery({
         queryKey: ["editApplication"],
         queryFn: async() => {
             const res = await axiosSecure.get(`/appliedScholarships/${id}`);
             return res.data;
         }
     });
-    const [uploadedImageUrl, setUploadedImageUrl] = useState("");
 
     if(isLoading){
         return <Loading/>;
@@ -48,23 +51,45 @@ const EditMyApplication = () => {
         }
     };
 
-    const handleEditApplication = (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log(data)
+    const onSubmit = async(data) => {
+        const serverData = {
+            ...data,
+            currentDate: editApplication?.currentDate,
+            applicationFees: editApplication?.applicationFees,
+            applicationStatus: editApplication?.applicationStatus,
+            feedback: editApplication?.feedback,
+            scholarshipId: editApplication?.scholarshipId,
+            serviceCharge: editApplication?.serviceCharge,
+            scholarshipName: editApplication?.scholarshipName,
+            universityCity: editApplication?.universityCity,
+            universityCountry: editApplication?.universityCountry,
+            userEmail: editApplication?.userEmail,
+            userName: editApplication?.userName,
+            applicantPhotoURL: uploadedImageUrl || editApplication?.applicantPhotoURL
+        };
+        const res = await axiosSecure.put(`/editAppliedScholarship/${id}`, serverData);
+        if(res.data.modifiedCount){
+            refetch();
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations!",
+                text: `Scholarship updated successfully`,
+            });
+        }else{
+            Swal.fire({
+                icon: "question",
+                title: "Sorry!",
+                text: `Please edit your application`,
+            });
+        };
     };
-
-    console.log(editApplication)
-    console.log(uploadedImageUrl)
     
     return (
         <div>
             <div className='mx-auto p-4'>
                 <h1 className="text-3xl font-bold mb-6">Edit Application</h1>
 
-                <form onSubmit={handleEditApplication} className="max-w-3xl mx-5 md:mx-auto my-10 p-6 bg-white rounded-lg shadow space-y-6">
+                <form onSubmit={handleSubmit(onSubmit)} className="max-w-3xl mx-5 md:mx-auto my-10 p-6 bg-white rounded-lg shadow space-y-6">
                     
                     <div>
                         <img src={ uploadedImageUrl ? uploadedImageUrl : editApplication.applicantPhotoURL} alt="" className="w-20 h-20 rounded-full mx-auto" />
@@ -76,7 +101,7 @@ const EditMyApplication = () => {
                             <label className="label">
                             <span className="label-text font-medium">Phone</span>
                             </label>
-                            <input type="text" defaultValue={editApplication?.applicantPhoneNumber} placeholder="Enter your phone number" required className="input input-bordered w-full" />
+                            <input type="text" defaultValue={editApplication?.applicantPhoneNumber} {...register("applicantPhoneNumber")} placeholder="Enter your phone number" required className="input input-bordered w-full" />
                         </div>
 
                         {/* Photo Upload */}
@@ -93,7 +118,7 @@ const EditMyApplication = () => {
                         <label className="label">
                         <span className="label-text font-medium">Address</span>
                         </label>
-                        <input type="text" defaultValue={editApplication?.applicantAddress} placeholder="Village, District, Country" required className="input input-bordered w-full" />
+                        <input type="text" defaultValue={editApplication?.applicantAddress} {...register("applicantAddress")} placeholder="Village, District, Country" required className="input input-bordered w-full" />
                     </div>
 
                     {/* Gender & Degree */}
@@ -102,7 +127,7 @@ const EditMyApplication = () => {
                         <label className="label">
                             <span className="label-text font-medium">Gender</span>
                         </label>
-                        <select defaultValue={editApplication?.applicantGender} required className="select select-bordered w-full">
+                        <select defaultValue={editApplication?.applicantGender} {...register("applicantGender")} required className="select select-bordered w-full">
                             <option value="">Select gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -113,7 +138,7 @@ const EditMyApplication = () => {
                         <label className="label">
                             <span className="label-text font-medium">Degree</span>
                         </label>
-                        <select defaultValue={editApplication?.applyingDegree} required className="select select-bordered w-full">
+                        <select defaultValue={editApplication?.applyingDegree} required {...register("applyingDegree")} className="select select-bordered w-full">
                             <option value="">Select degree</option>
                             <option value="Diploma">Diploma</option>
                             <option value="Bachelor">Bachelor</option>
@@ -128,14 +153,14 @@ const EditMyApplication = () => {
                         <label className="label">
                             <span className="label-text font-medium">SSC Result</span>
                         </label>
-                        <input type="text" defaultValue={editApplication?.sscResult} placeholder="e.g. 4.50" required className="input input-bordered w-full" />
+                        <input type="text" defaultValue={editApplication?.sscResult} {...register("sscResult")} placeholder="e.g. 4.50" required className="input input-bordered w-full" />
                         </div>
 
                         <div className="form-control">
                         <label className="label">
                             <span className="label-text font-medium">HSC Result</span>
                         </label>
-                        <input type="text" defaultValue={editApplication?.hscResult} placeholder="e.g. 5.00" required className="input input-bordered w-full" />
+                        <input type="text" defaultValue={editApplication?.hscResult} {...register("hscResult")} placeholder="e.g. 5.00" required className="input input-bordered w-full" />
                         </div>
                     </div>
 
@@ -145,7 +170,7 @@ const EditMyApplication = () => {
                             <label className="label">
                             <span className="label-text font-medium">Any Study Gap?</span>
                             </label>
-                            <select defaultValue={editApplication?.studyGap} className="select select-bordered w-full">
+                            <select defaultValue={editApplication?.studyGap} {...register("studyGap")} className="select select-bordered w-full">
                                 <option value="">Select option</option>
                                 <option value="Yes">Yes</option>
                                 <option value="No">No</option>
@@ -161,6 +186,7 @@ const EditMyApplication = () => {
                             placeholder="University Name"
                             className="input input-bordered w-full"
                             value={editApplication?.universityName}
+                            {...register("universityName")}
                             readOnly
                             required
                             />
@@ -177,6 +203,7 @@ const EditMyApplication = () => {
                             placeholder="Scholarship Category"
                             className="input input-bordered w-full"
                             value={editApplication?.scholarshipCategory}
+                            {...register("scholarshipCategory")}
                             readOnly
                             required
                             />
@@ -191,6 +218,7 @@ const EditMyApplication = () => {
                             placeholder="Subject Name"
                             className="input input-bordered w-full"
                             value={editApplication?.subject}
+                            {...register("subject")}
                             readOnly
                             required
                             />

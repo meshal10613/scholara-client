@@ -68,6 +68,13 @@ const MyApplication = () => {
         };
     };
 
+    const openDetails = (scholarship) => {
+        setSelected(scholarship);
+        document.getElementById("scholarshipModal").showModal();
+    };
+
+    const closeDetails = () => setSelected(null);
+
     return (
         <div>
             <div className="mx-auto p-4">
@@ -103,7 +110,7 @@ const MyApplication = () => {
                             <td>${scholarship?.serviceCharge || "N/A"}</td>
                             <td>{scholarship?.applicationStatus || "N/A"}</td>
                             <td className="flex gap-2">
-                            <button className="btn btn-sm btn-info text-white tooltip" data-tip="Details">
+                            <button onClick={() => openDetails(scholarship)} className="btn btn-sm btn-info text-white tooltip" data-tip="Details">
                                 <FaEye />
                             </button>
                             <Link onClick={() => handleEditApplication(scholarship)} className="btn btn-sm btn-warning text-white tooltip" data-tip="Edit">
@@ -124,6 +131,65 @@ const MyApplication = () => {
                     </table>
                 </div>
             </div>
+
+            {/* ---------- DaisyUI Modal ---------- */}
+            <dialog id="scholarshipModal" className="modal">
+                <form method="dialog" className="modal-box max-w-2xl">
+                <button
+                    onClick={closeDetails}
+                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                >
+                    ✕
+                </button>
+
+                {selected && (
+                <div className="space-y-2">
+                    <h3 className="text-xl font-bold mb-2">{selected.scholarshipName}</h3>
+
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                        <p>
+                        <span className="font-medium">University Name:</span>{" "}
+                        {selected.universityName}
+                        </p>
+                        <p>
+                        <span className="font-medium">Applicant Phone Number:</span> {selected.applicantPhoneNumber}
+                        </p>
+                        <p>
+                        <span className="font-medium">Scholarship:</span> {selected.scholarshipCategory}
+                        </p>
+                        <p>
+                        <span className="font-medium">Applicant Gender:</span> {selected.applicantGender}
+                        </p>
+                        <p>
+                        <span className="font-medium">subject:</span> {selected.subject}
+                        </p>
+                        <p>
+                        <span className="font-medium">SSC Result:</span> {selected.sscResult}
+                        </p>
+                        <p>
+                        <span className="font-medium">Applying Degree:</span> {selected.applyingDegree}
+                        </p>
+                        <p>
+                        <span className="font-medium">HSC Result:</span>{" "}
+                        {selected.hscResult}
+                        </p>
+                        <p>
+                        <span className="font-medium">Apply Date:</span>{" "}
+                        {selected.currentDate}
+                        </p>
+                        <p>
+                        <span className="font-medium">Study Gap:</span>{" "}
+                        {selected.studyGap ? `${selected.studyGap}` : "N/A"}
+                        </p>
+                        <p className="col-span-2">
+                        <span className="font-medium">Address:</span>{" "}
+                        {selected.applicantAddress}
+                        </p>
+                    </div>
+                </div>
+                )}
+                </form>
+            </dialog>
 
             {/* Modal */}
             {isOpen && (
