@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
-import { FaClipboardList, FaComments, FaUserEdit, FaUsersCog } from 'react-icons/fa';
+import { FaClipboardList, FaComments, FaUsersCog } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router';
 import Logo from '../Components/Shared/Logo';
 import { MdManageSearch, MdPerson, MdPostAdd, MdRateReview } from 'react-icons/md';
 import { HiOutlineClipboardCheck } from 'react-icons/hi';
 import { RiFileSettingsLine, RiListCheck2 } from 'react-icons/ri';
+import useUserRole from '../Hooks/useUserRole';
+import Loading from '../Components/Loading';
 
 const DashboardLayout = () => {
-    const [dash, setDash] = useState("My Profile")
+    const {role, roleLoading} = useUserRole();
+    const [dash, setDash] = useState("My Profile");
+
+    if(roleLoading){
+        return <Loading/>;
+    };
+
+    console.log(role)
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
