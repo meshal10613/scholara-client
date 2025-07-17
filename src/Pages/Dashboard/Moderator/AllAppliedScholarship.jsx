@@ -12,11 +12,12 @@ const AllAppliedScholarship = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [modal, setModal] = useState([]);
     const [feedback, setFeedback] = useState("");
+    const [filterRole, setFilterRole] = useState("");
     const axiosSecure = useAxiosSecure();
     const { data: appliedScholarships = [], isLoading, refetch } = useQuery({
-        queryKey: ["manage"],
+        queryKey: ["manage", filterRole],
         queryFn: async() => {
-            const res = await axiosSecure.get(`/appliedScholarships`);
+            const res = await axiosSecure.get(`/appliedScholarships?role=${filterRole}`);
             return res.data;
         }
     });
@@ -93,11 +94,27 @@ const AllAppliedScholarship = () => {
         });
     };
 
+    const handleFilterRole = (role) => {
+        setFilterRole(role);
+        refetch();
+    };
+
     return (
     <div>
         <div>
             <div className="mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-6">All Applied Scholarships</h1>
+                <div className='flex justify-between items-center mb-6'>
+                    <h1 className="text-3xl font-bold mb-6">All Applied Scholarships</h1>
+                    <select
+                        className="select select-bordered w-fit"
+                        defaultValue={filterRole}
+                        onClick={(e) => handleFilterRole(e.target.value)}
+                        >
+                        <option value="">Filter</option>
+                        <option value="currentDate">Applied Date</option>
+                        <option value="applicationDeadline">Scholarship Deadline</option>
+                    </select>
+                </div>
 
                 <div className="overflow-x-auto">
                     <table className="table w-full">

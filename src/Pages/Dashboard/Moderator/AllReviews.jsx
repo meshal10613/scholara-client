@@ -3,6 +3,7 @@ import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Components/Loading';
 import Swal from 'sweetalert2';
+import EmptyState from '../../../Components/EmptyState';
 
 const AllReviews = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,6 +17,10 @@ const AllReviews = () => {
 
     if(isLoading){
         return <Loading/>;
+    };
+    
+    if(allReviews.length < 1){
+        return <EmptyState/>;
     };
 
     const deleteReview = async(id) => {

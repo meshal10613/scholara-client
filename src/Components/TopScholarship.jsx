@@ -1,24 +1,13 @@
 import React from 'react';
-import useAxios from '../Hooks/useAxios';
-import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router';
 
-const TopScholarship = () => {
-    const axiosInstance = useAxios();
-    const { data: topS = [] } = useQuery({
-        queryKey: ["topS",],
-        queryFn: async() => {
-            const res = await axiosInstance.get(`/topScholarship`);
-            return res.data;
-        }
-    });
+const TopScholarship = ({topS}) => {
     return (
         <section className="px-4 md:px-8 lg:px-16 py-10">
             <h2 className="text-3xl font-bold text-center mb-8">Top Scholarships</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {topS.map((scholarship) => (
-                <div key={scholarship._id} className="card bg-base-100 shadow-xl">
+                <div key={scholarship._id} className="card bg-white shadow-xl">
                     <figure className="px-4 pt-4">
                     <img
                         src={scholarship?.universityImage}

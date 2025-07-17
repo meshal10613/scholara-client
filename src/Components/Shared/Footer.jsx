@@ -7,7 +7,7 @@ import Logo from './Logo';
 const Footer = () => {
     return (
         <footer className="py-10 px-0 2xl:px-[7%]">
-            <div className="mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="mx-auto px-6 flex flex-col md:flex-row md:items-center justify-between gap-8">
                 
                 {/* Logo and Description */}
                 <div>
@@ -18,7 +18,7 @@ const Footer = () => {
                 </div>
 
                 {/* Navigation Links */}
-                <div>
+                <div className=''>
                 <h4 className="font-semibold mb-3 menu menu-vertical">Quick Links</h4>
                 <ul className="space-y-2 text-sm footlink">
                     <li className=''><NavLink to="/">Home</NavLink></li>

@@ -73,14 +73,13 @@ export const router = createBrowserRouter([
                 path: "my-reviews",
                 element: <MyReviews/>
             },
-            // Moderator
             {
                 path: "all-reviews",
-                element: <AllReviews/>
+                element: <AllReviews/> //moderator & admin
             },
             {
                 path: "all-applied-scholarship",
-                element: <AllAppliedScholarship/>
+                element: <AllAppliedScholarship/>//moderator & admin
             },
             {
                 path: "add-scholarship", //moderator & admin
@@ -96,14 +95,8 @@ export const router = createBrowserRouter([
             },
             // admin
             {
-                path: "manage-applied-application",
-            },
-            {
                 path: "manage-users",
                 element: <ManageUsers/>
-            },
-            {
-                path: "manage-review"
             }
         ]
     }

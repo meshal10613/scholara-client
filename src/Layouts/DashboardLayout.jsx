@@ -7,12 +7,14 @@ import { HiOutlineClipboardCheck } from 'react-icons/hi';
 import { RiFileSettingsLine, RiListCheck2 } from 'react-icons/ri';
 import useUserRole from '../Hooks/useUserRole';
 import Loading from '../Components/Loading';
+import useAuthContext from '../Hooks/useAuthContext';
 
 const DashboardLayout = () => {
+    const {user} = useAuthContext();
     const {role, roleLoading} = useUserRole();
     const [dash, setDash] = useState("My Profile");
 
-    if(roleLoading){
+    if(roleLoading || !user){
         return <Loading/>;
     };
 
@@ -94,23 +96,10 @@ const DashboardLayout = () => {
                             Manage Scholarship
                         </NavLink>
                     </li>
-                    {/* admin */}
-                    <li>
-                        <NavLink to="/dashboard/manage-applied-application" onClick={() => setDash("Manage Applied Application")}>
-                            <RiListCheck2 className="inline-block mr-2" />
-                            Manage Applied Application
-                        </NavLink>
-                    </li>
                     <li>
                         <NavLink to="/dashboard/manage-users" onClick={() => setDash("Manage Users")}>
                             <FaUsersCog className="inline-block mr-2" />
                             Manage Users
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/manage-review" onClick={() => setDash("Manage Review")}>
-                            <MdManageSearch className="inline-block mr-2" />
-                            Manage Review
                         </NavLink>
                     </li>
                 </ul>

@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
+import EmptyState from '../../Components/EmptyState';
 
 const MyReviews = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,10 @@ const MyReviews = () => {
 
     if(isLoading){
         return <Loading/>;
+    };
+
+    if(myReviews.length < 1){
+        return <EmptyState/>;
     };
 
     const handleEditReview = (data) => {

@@ -16,6 +16,7 @@ const AddScholarship = () => {
         watch,
         setError,
         clearErrors,
+        reset,
         formState: { errors },
     } = useForm();
 
@@ -78,6 +79,8 @@ const AddScholarship = () => {
                 title: "Congratulations!",
                 text: `Scholarship added successfully`,
             });
+            reset();
+            setUploadedImageUrl("");
         };
     };
 
@@ -228,7 +231,7 @@ const AddScholarship = () => {
                     </div>
 
                     <div className="md:col-span-2 text-center">
-                    <button type="submit" className="btn btn-secondary text-base-100 mt-4 w-full md:w-auto">Submit Scholarship</button>
+                    <button type="submit" disabled={uploading} className="btn btn-secondary text-base-100 mt-4 w-full md:w-auto">Submit Scholarship</button>
                     </div>
                 </form>
             </div>

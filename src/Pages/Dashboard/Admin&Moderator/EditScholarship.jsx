@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import useAxiosSecure from '../../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Components/Loading';
@@ -11,6 +11,7 @@ const EditScholarship = () => {
     const [uploadedImageUrl, setUploadedImageUrl] = useState("");
     const [uploading, setUploading] = useState(false);
     const {id} = useParams();
+    const navigate = useNavigate();
     const axiosInstance = useAxiosSecure();
     const {data: scholarship = [], isLoading} = useQuery({
         queryKey: ["scholarship"],
@@ -25,7 +26,7 @@ const EditScholarship = () => {
             watch,
             setError,
             clearErrors,
-            formState: { errors },
+            formState: { errors, isDirty  },
     } = useForm();
 
     const imageFile = watch("universityImage");
@@ -69,6 +70,14 @@ const EditScholarship = () => {
     };
 
     const onSubmit = async(data) => {
+        if(!isDirty){
+            Swal.fire({
+                icon: "error",
+                title: "Sorry!",
+                text: `Please chnage the scholarship details`,
+            });
+            return;
+        }
         data.universityImage = uploadedImageUrl || scholarship.universityImage;
         const serverData = {
             ...data,
@@ -84,6 +93,7 @@ const EditScholarship = () => {
                 title: "Congratulations!",
                 text: `Scholarship updated successfully`,
             });
+            navigate("/dashboard/manage-scholarships");
         };
     };
     

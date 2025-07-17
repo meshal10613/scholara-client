@@ -68,7 +68,7 @@ const MyProfile = () => {
         <div className="max-w-full flex items-center justify-center p-6">
             <div className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full text-center">
                 <img
-                src={user.photoURL || 'https://via.placeholder.com/100'}
+                src={user?.photoURL}
                 alt={people.displayName}
                 className="w-28 h-28 rounded-full mx-auto mb-4 object-cover border-2 border-secondary"
                 />

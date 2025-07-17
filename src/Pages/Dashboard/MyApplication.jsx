@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router';
 import { MdCancel, MdFeedback } from 'react-icons/md';
 import Swal from 'sweetalert2';
 import { useForm } from 'react-hook-form';
+import EmptyState from '../../Components/EmptyState';
 
 const MyApplication = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +27,10 @@ const MyApplication = () => {
 
     if(isLoading){
         return <Loading/>;
+    };
+    
+    if(myApplication.length < 1){
+        return <EmptyState/>;
     };
 
     const handleEditApplication = (data) => {

@@ -6,6 +6,7 @@ import { useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { MdError } from "react-icons/md";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router";
 
 
 const PaymentForm = ({ scholarship, id}) => {
@@ -16,6 +17,7 @@ const PaymentForm = ({ scholarship, id}) => {
     const stripe = useStripe();
     const elements = useElements();
     const { register, handleSubmit } = useForm();
+    const navigate = useNavigate();
 
     const applicationFees = parseInt(scholarship?.applicationFees);
     const serviceCharge = parseInt(scholarship?.serviceCharge);
@@ -112,10 +114,12 @@ const PaymentForm = ({ scholarship, id}) => {
                     userId: user?._id,
                     scholarshipId: scholarship._id,
                     currentDate: new Date().toDateString(),
+                    applicationDeadline: scholarship.applicationDeadline,
                     applicationStatus: "pending"
                 };
                 const userRes = await axiosSecure.post("/appliedScholarships", serverData);
                 if(userRes.data.insertedId){
+                    navigate("/");
                     Swal.fire({
                         icon: "success",
                         title: "Congratulations!",
