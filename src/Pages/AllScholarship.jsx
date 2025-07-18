@@ -1,16 +1,32 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxios from '../Hooks/useAxios';
 import Loading from '../Components/Loading';
 import { Link } from 'react-router';
 
 const AllScholarship = () => {
     const [search, setSearch] = useState("");
+    const [itemsPerPage, setItemsPerPage] = useState(4);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [count, setCount] = useState(0);
+    const numberOfPage = Math.ceil(count / itemsPerPage);
+    //shortcut
+    const pages = [...Array(numberOfPage).keys()];
+
+    useEffect( () =>{
+        fetch('http://localhost:3000/scholarshipsCount')
+        .then(res => res.json())
+        .then(data => {
+            setCount(data.count),
+            setItemsPerPage(4)
+        })
+    }, [])
+
     const axiosInstance = useAxios();
     const {data: scholarships = [], isLoading} = useQuery({
-        queryKey: ["scholarships"],
+        queryKey: ["scholarships", itemsPerPage, currentPage],
         queryFn: async() => {
-            const res = await axiosInstance.get(`/scholarships`);
+            const res = await axiosInstance.get(`/scholarships?page=${currentPage}&size=${itemsPerPage}`);
             return res.data;
         }
     });
@@ -21,6 +37,18 @@ const AllScholarship = () => {
 
     const handleSearch = () => {
         console.log(search)
+    };
+
+    const handlePrevPage = () => {
+        if(currentPage > 0){
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        if(currentPage < pages.length - 1){
+            setCurrentPage(currentPage + 1);
+        }
     };
 
     return (
@@ -71,6 +99,20 @@ const AllScholarship = () => {
                 </div>
             ))
             )}
+        </div>
+
+        <div className='flex items-center justify-center gap-2 my-5'>
+            {/* <p>currentPage- {currentPage}</p> */}
+            <button onClick={handlePrevPage} className='btn'>Prev</button>
+            {
+                pages.map((page) => <button 
+                    className={`${currentPage === page ? `bg-secondary` : undefined} btn`}
+                    onClick={() => setCurrentPage(page)} 
+                    key={page}>
+                        {page + 1}
+                </button>)
+            }
+            <button onClick={handleNextPage} className='btn'>Next</button>
         </div>
     </div>
     );
