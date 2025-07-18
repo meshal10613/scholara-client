@@ -29,7 +29,7 @@ const HowItWorks = () => {
     return (
         <section className="px-4 md:px-8 lg:px-16 py-10">
             <h2 className="text-3xl font-bold text-center mb-4">How It Works</h2>
-            <p className="text-center text-gray-500 mb-10">
+            <p className="text-center text-gray-500 mb-8">
                 A simple 4-step process to get you closer to your dream scholarship
             </p>
 
@@ -50,14 +50,14 @@ const HowItWorks = () => {
                 </div>
 
                 {/* Lottie Animation */}
-                <div className="flex-1 w-full">
+                <div className="flex-1 w-full flex items-center justify-center">
                 {/* <Player
                     autoplay
                     loop
                     src={animationData}
                     className="w-full h-auto"
                 /> */}
-                    <img src={howIt} alt="" className='w-fit' />
+                    <img src={howIt} alt="" className='w-fit h-98' />
                 </div>
             </div>
         </section>

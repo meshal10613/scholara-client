@@ -6,6 +6,7 @@ import { FaEye } from 'react-icons/fa';
 import { Link } from 'react-router';
 import { MdCancel, MdFeedback } from 'react-icons/md';
 import Swal from 'sweetalert2';
+import EmptyState from '../../../Components/EmptyState';
 
 const AllAppliedScholarship = () => {
     const [selected, setSelected] = useState(null);
@@ -24,6 +25,10 @@ const AllAppliedScholarship = () => {
 
     if(isLoading){
         return <Loading/>;
+    };
+
+    if(appliedScholarships.length < 1){
+        return <EmptyState/>;
     };
 
     const handleFeedback = (data) => {
