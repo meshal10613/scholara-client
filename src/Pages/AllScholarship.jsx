@@ -24,9 +24,9 @@ const AllScholarship = () => {
 
     const axiosInstance = useAxios();
     const {data: scholarships = [], isLoading} = useQuery({
-        queryKey: ["scholarships", itemsPerPage, currentPage],
+        queryKey: ["scholarships", itemsPerPage, currentPage, search],
         queryFn: async() => {
-            const res = await axiosInstance.get(`/scholarships?page=${currentPage}&size=${itemsPerPage}`);
+            const res = await axiosInstance.get(`/scholarships?page=${currentPage}&size=${itemsPerPage}&search=${search}`);
             return res.data;
         }
     });
@@ -35,8 +35,10 @@ const AllScholarship = () => {
         return <Loading/>;
     };
 
-    const handleSearch = () => {
-        console.log(search)
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const s = e.target.search.value;
+        setSearch(s);
     };
 
     const handlePrevPage = () => {
@@ -56,21 +58,21 @@ const AllScholarship = () => {
         <h1 className="text-3xl font-bold mb-6 text-center">All Scholarships</h1>
 
         {/* Search Box */}
-        <div className="flex items-center gap-4 mb-6 justify-center mx-5 md:mx-0">
+        <form onSubmit={handleSearch} className="flex items-center gap-4 mb-6 justify-center mx-5 md:mx-0">
             <input
             type="text"
+            name='search'
             placeholder="Search by university, subject, or category..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            defaultValue={search}
             className="input"
             />
             <button
             className="btn border-none bg-secondary text-base-100"
-            onClick={handleSearch}
+            type='submit'
             >
             Search
             </button>
-        </div>
+        </form>
 
         {/* Scholarships Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 mx-5 md:mx-0">
@@ -106,7 +108,7 @@ const AllScholarship = () => {
             <button onClick={handlePrevPage} className='btn'>Prev</button>
             {
                 pages.map((page) => <button 
-                    className={`${currentPage === page ? `bg-secondary` : undefined} btn`}
+                    className={`${currentPage === page ? `bg-secondary text-white` : undefined} btn`}
                     onClick={() => setCurrentPage(page)} 
                     key={page}>
                         {page + 1}
