@@ -36,7 +36,7 @@ const AllReviews = () => {
         .then(async(result) => {
             if (result.isConfirmed) {
                 try {
-                const res = await axiosSecure.delete(`http://localhost:3000/reviews/${id}`);
+                const res = await axiosSecure.delete(`/reviews/${id}`);
                 if(res.data.deletedCount === 1 || res.data.message === "Scholarship deleted successfully") {
                     refetch(); // ⏬ Refetch after delete
                     Swal.fire("Deleted!", "The review has been deleted.", "success");

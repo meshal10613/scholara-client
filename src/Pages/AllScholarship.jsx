@@ -15,7 +15,7 @@ const AllScholarship = () => {
     const pages = [...Array(numberOfPage).keys()];
 
     useEffect( () =>{
-        fetch('http://localhost:3000/scholarshipsCount')
+        fetch('https://assignment-12-server-xi-six.vercel.app/scholarshipsCount')
         .then(res => res.json())
         .then(data => {
             setCount(data.count),
