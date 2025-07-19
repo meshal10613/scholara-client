@@ -18,7 +18,6 @@ const DashboardLayout = () => {
         return <Loading/>;
     };
 
-    console.log(role)
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -52,56 +51,105 @@ const DashboardLayout = () => {
                 <ul className="menu bg-base-200 text-base-content min-h-full w-80 p-4 dashlink">
                     <Logo/>
                     {/* Sidebar content here */}
-                    <li>
-                        <NavLink to="/dashboard/my-profile" onClick={() => setDash("My Profile")}>
-                            <MdPerson className="inline-block mr-2" />
-                            My Profile
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/my-application" onClick={() => setDash("My Application")}>
-                            <FaClipboardList className="inline-block mr-2" />
-                            My Application
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/my-reviews" onClick={() => setDash("My Reviews")}>
-                            <MdRateReview className="inline-block mr-2" />
-                            My Reviews
-                        </NavLink>
-                    </li>
-                    {/* moderator */}
-                    <li>
-                        <NavLink to="/dashboard/all-reviews" onClick={() => setDash("All Reviews")}>
-                            <FaComments className="inline-block mr-2" />
-                            All Reviews
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("All Applied Scholarship")}>
-                            <HiOutlineClipboardCheck className="inline-block mr-2" />
-                            All Applied Scholarship
-                        </NavLink>
-                    </li>
-                    {/* moderator & admin */}
-                    <li>
-                        <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("Add Scholarship")}>
-                            <MdPostAdd className="inline-block mr-2" />
-                            Add Scholarship
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("Manage Scholarship")}>
-                            <RiFileSettingsLine className="inline-block mr-2" />
-                            Manage Scholarship
-                        </NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/dashboard/manage-users" onClick={() => setDash("Manage Users")}>
-                            <FaUsersCog className="inline-block mr-2" />
-                            Manage Users
-                        </NavLink>
-                    </li>
+                    {
+                        !roleLoading && role==="user" &&
+                        <>
+                            <li>
+                                <NavLink to="/dashboard/my-profile" onClick={() => setDash("My Profile")}>
+                                    <MdPerson className="inline-block mr-2" />
+                                    My Profile
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/my-application" onClick={() => setDash("My Application")}>
+                                    <FaClipboardList className="inline-block mr-2" />
+                                    My Application
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/my-reviews" onClick={() => setDash("My Reviews")}>
+                                    <MdRateReview className="inline-block mr-2" />
+                                    My Reviews
+                                </NavLink>
+                            </li>
+                        </>
+                    }
+                    {
+                        !roleLoading && role==="moderator" &&
+                        <>
+                            <li>
+                                <NavLink to="/dashboard/my-profile" onClick={() => setDash("My Profile")}>
+                                    <MdPerson className="inline-block mr-2" />
+                                    My Profile
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("Manage Scholarship")}>
+                                    <RiFileSettingsLine className="inline-block mr-2" />
+                                    Manage Scholarship
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/all-reviews" onClick={() => setDash("All Reviews")}>
+                                    <FaComments className="inline-block mr-2" />
+                                    All Reviews
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("All Applied Scholarship")}>
+                                    <HiOutlineClipboardCheck className="inline-block mr-2" />
+                                    All Applied Scholarship
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("Add Scholarship")}>
+                                    <MdPostAdd className="inline-block mr-2" />
+                                    Add Scholarship
+                                </NavLink>
+                            </li>
+                        </>
+                    }
+                    {
+                        !roleLoading && role==="admin" &&
+                        <>
+                            <li>
+                                <NavLink to="/dashboard/my-profile" onClick={() => setDash("My Profile")}>
+                                    <MdPerson className="inline-block mr-2" />
+                                    My Profile
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/add-scholarship" onClick={() => setDash("Add Scholarship")}>
+                                    <MdPostAdd className="inline-block mr-2" />
+                                    Add Scholarship
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/manage-scholarships" onClick={() => setDash("Manage Scholarship")}>
+                                    <RiFileSettingsLine className="inline-block mr-2" />
+                                    Manage Scholarship
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/all-applied-scholarship" onClick={() => setDash("All Applied Scholarship")}>
+                                    <HiOutlineClipboardCheck className="inline-block mr-2" />
+                                    All Applied Scholarship
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/all-reviews" onClick={() => setDash("All Reviews")}>
+                                    <FaComments className="inline-block mr-2" />
+                                    All Reviews
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/manage-users" onClick={() => setDash("Manage Users")}>
+                                    <FaUsersCog className="inline-block mr-2" />
+                                    Manage Users
+                                </NavLink>
+                            </li>
+                        </>
+                    }
                 </ul>
             </div>
         </div>

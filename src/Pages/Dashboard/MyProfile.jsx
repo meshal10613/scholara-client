@@ -5,9 +5,13 @@ import useAuthContext from '../../Hooks/useAuthContext';
 import Loading from '../../Components/Loading';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router';
+import useUserRole from '../../Hooks/useUserRole';
+import AdminChart from './Admin/AdminChart';
+import useCountCollections from '../../Hooks/useCountCollections';
 
 const MyProfile = () => {
     const {user, signOutUser} = useAuthContext();
+    const {role, roleLoading} = useUserRole();
     const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const {data: people = [], isLoading} = useQuery({
@@ -17,8 +21,10 @@ const MyProfile = () => {
             return res.data;
         }
     });
+
+    const {data} = useCountCollections();
     
-    if(isLoading){
+    if(isLoading || roleLoading || !user || !data){
         return <Loading/>;
     };
 
@@ -65,8 +71,8 @@ const MyProfile = () => {
     };
 
     return (
-        <div className="max-w-full flex items-center justify-center p-6">
-            <div className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full text-center">
+        <div className="max-w-full flex flex-col justify-center p-6">
+            <div className="bg-white shadow-lg rounded-xl p-8 max-w-md w-full mx-auto text-center">
                 <img
                 src={user?.photoURL}
                 alt={people.displayName}
@@ -107,6 +113,14 @@ const MyProfile = () => {
                     </button>
                 </div>
             </div>
+
+            {
+                role === "admin" &&
+                <div className="mt-6">
+                    <h2 className="text-3xl font-bold mb-6">Admin Stats Overview</h2>
+                    <AdminChart data={data} />
+                </div>
+            }
         </div>
     );
 };
