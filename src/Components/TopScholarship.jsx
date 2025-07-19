@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const TopScholarship = ({topS}) => {
     return (
@@ -7,7 +8,7 @@ const TopScholarship = ({topS}) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {topS.map((scholarship) => (
-                <div key={scholarship._id} className="card bg-white shadow-xl">
+                <Link to={`/scholarshipDetails/${scholarship._id}`} key={scholarship._id} className="card bg-white shadow-xl">
                     <figure className="px-4 pt-4">
                     <img
                         src={scholarship?.universityImage}
@@ -21,7 +22,7 @@ const TopScholarship = ({topS}) => {
                         <p className="text-sm text-primary">Deadline: {scholarship?.applicationDeadline}</p>
                         <p className="text-sm text-primary">Application Fee: ${scholarship.applicationFees}</p>
                     </div>
-                </div>
+                </Link>
                 ))}
             </div>
         </section>

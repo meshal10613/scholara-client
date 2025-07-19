@@ -7,6 +7,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { MdError } from "react-icons/md";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import { IoMdAlert } from "react-icons/io";
 
 
 const PaymentForm = ({ scholarship, id}) => {
@@ -301,6 +302,7 @@ const PaymentForm = ({ scholarship, id}) => {
                 error && 
                 <p className='text-red-500 text-center flex items-center justify-center gap-1'><MdError size={20}/>{error}</p>
             }
+            <p className="text-red-500 text-left w-full flex gap-1"><IoMdAlert />If you do not select the correct degree, your application will be rejected. Please review the scholarship details carefully before submitting.</p>
         </form>
     );
 };

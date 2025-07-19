@@ -19,6 +19,7 @@ import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers";
 import EditScholarship from "../Pages/Dashboard/Admin&Moderator/EditScholarship";
 import ApplyScholarship from "../Pages/Home/ApplyScholarship";
 import EditMyApplication from "../Pages/Dashboard/EditMyApplication";
+import Forbidden from "../Pages/Forbidden";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path: "/applyScholarship/:id",
                 element: <PrivetRoute><ApplyScholarship/></PrivetRoute>
+            }, 
+            {
+                path: "/forbidden",
+                element: <Forbidden/>
             }
         ]
     },

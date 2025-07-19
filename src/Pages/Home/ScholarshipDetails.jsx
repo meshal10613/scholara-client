@@ -42,8 +42,9 @@ const scholarshipshipDetails = () => {
                             <p className="text-lg"><span className="font-semibold">🎓 scholarship Category:</span> {scholarship?.scholarshipCategory}</p>
                             <p className="text-lg"><span className="font-semibold">📍 Location:</span> {scholarship?.universityCity}, {scholarship?.universityCountry}</p>
                             <p className="text-lg"><span className="font-semibold">🗂️ Subject:</span> {scholarship?.subjectCategory}</p>
+                            <p className="text-lg"><span className="font-semibold">🏅 Degree:</span> {scholarship?.degree}</p>
                             <p className="text-lg"><span className="font-semibold">📅 Deadline:</span> {scholarship?.applicationDeadline}</p>
-                            <p className="text-lg"><span className="font-semibold">🕓 Posted:</span> {scholarship?.postDate}</p>
+                            
                             </div>
                             <div>
                                 {scholarship?.stipend && <p className="text-lg"><span className="font-semibold">💰 Stipend:</span> {scholarship?.stipend}</p>}
@@ -51,6 +52,7 @@ const scholarshipshipDetails = () => {
                                 {`${scholarship?.applicationFees}` || "None"}</p>
                                 <p className="text-lg"><span className="font-semibold">🔧 Service Charge:</span> {scholarship?.serviceCharge || "No charge"}</p>
                                 <p className='text-lg'><span className="font-semibold">⭐ Rating</span> {scholarship.rating}</p>
+                                <p className="text-lg"><span className="font-semibold">🕓 Posted:</span> {scholarship?.postDate}</p>
                             </div>
                         </div>
 

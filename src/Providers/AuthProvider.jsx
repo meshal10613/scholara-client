@@ -37,6 +37,8 @@ const AuthProvider = ({children}) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
             setLoading(false);
+            const token = currentUser?.accessToken;
+            localStorage.setItem("token", token);
         });
 
         return () => {

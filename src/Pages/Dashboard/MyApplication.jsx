@@ -17,7 +17,7 @@ const MyApplication = () => {
     const navigate = useNavigate();
     const { register, handleSubmit } = useForm();
     const axiosSecure = useAxiosSecure();
-    const { data: myApplication = [], isLoading } = useQuery({
+    const { data: myApplication = [], isLoading, refetch } = useQuery({
         queryKey: ["myApplication"],
         queryFn: async() => {
             const res = await axiosSecure.get(`/appliedScholarships?email=${user?.email}`);
@@ -80,6 +80,33 @@ const MyApplication = () => {
 
     const closeDetails = () => setSelected(null);
 
+    const handleCancelApplication = async(id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Cancel this application?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#088395",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, cancel!",
+        })
+        .then(async(result) => {
+            if (result.isConfirmed) {
+                try {
+                const userRes = await axiosSecure.delete(`/appliedScholarships/${id}`);
+                if(userRes.data.deletedCount === 1 || userRes.data.message === "Scholarship deleted successfully") {
+                    refetch(); // ⏬ Refetch after delete
+                    Swal.fire("Deleted!", "The review has been deleted.", "success");
+                }else {
+                    Swal.fire("Not Found", "Scholarship not found.", "error");
+                }
+                }catch (error) {
+                    Swal.fire("Error", "Failed to delete scholarship.", error.message);
+                }
+            }
+        });
+    };
+
     return (
         <div>
             <div className="mx-auto p-4">
@@ -121,7 +148,7 @@ const MyApplication = () => {
                             <Link onClick={() => handleEditApplication(scholarship)} className="btn btn-sm btn-warning text-white tooltip" data-tip="Edit">
                                 <FaEdit />
                             </Link>
-                            <button className="btn btn-sm btn-error text-white tooltip" data-tip="Cancel">
+                            <button onClick={() => handleCancelApplication(scholarship._id)} className="btn btn-sm btn-error text-white tooltip" data-tip="Cancel">
                                 <MdCancel />
                             </button>
                             </td>
