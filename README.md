@@ -1,12 +1,78 @@
-# React + Vite
+# 🎓 Scholara
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Scholara is a full-featured scholarship management system that helps students discover, apply and track scholarships from various universities around the world. The platform also provides admins and scholarship providers with powerful tools to manage applications, reviews, and more.
 
-Currently, two official plugins are available:
+## 🌐 Live URL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🔗 [Visit Scholara](https://scholara-68d67.web.app/)  
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🎯 Purpose
+
+Scholara was created to simplify the process of finding and applying for scholarships. It centralizes verified scholarship opportunities in one place and allows students to manage applications efficiently. Admins can easily monitor, publish, and review scholarship details and applicant data.
+
+---
+
+## 🚀 Key Features
+
+### 👨‍🎓 For Students:
+- Browse global scholarships by university, degree, and category.
+- Apply to scholarships directly through the platform.
+- Secure payment for application fees (Stripe).
+- View application history and status.
+- Post and manage reviews for scholarships.
+
+
+### 🛡️ For Moderators:
+- Review and moderate user-submitted reviews.
+- Add new scholarships.
+- Manage flagged content and ensure content quality.
+- Have limited administrative privileges compared to full Admins.
+
+### 🛠️ For Admins:
+- Add, update, or delete scholarship listings.
+- Dashboard with analytics (total users, scholarships, applications, reviews).
+- Manage user accounts and roles.
+- Review applications and approve or reject them.
+- Respond to user reviews.
+- Admin can set any role.
+
+### ⭐ General Features:
+- Responsive design with React, Tailwind CSS, and DaisyUI.
+- Authentication with Firebase Access Token in Local Storage and social login (Firebase).
+- Secure backend using Express.js and MongoDB.
+- Token-based protected routes.
+
+---
+
+## 📦 NPM Packages Used
+
+### 🔧 Backend
+- `express`
+- `cors`
+- `dotenv`
+<!-- - `jsonwebtoken` -->
+- `mongodb`
+- `stripe`
+
+### 🖥️ Frontend
+- `react`
+- `react-router-dom`
+- `axios`
+- `firebase`
+- `tailwindcss`
+- `daisyui`
+- `react-icons`
+- `lottie-react`
+- `@stripe/react-stripe-js`
+- `@stripe/stripe-js`
+- `@tanstack/react-query`
+- `react-hook-form`
+- `react-responsive-carousel`
+- `recharts`
+- `sweetalert2`
+
+<!-- ---
+
+## 📁 Project Structure (Optional) -->
