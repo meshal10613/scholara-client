@@ -32,6 +32,7 @@ const MyReviews = () => {
     };
 
     const handleEditReview = (data) => {
+        setSelected([]);
         setSelected(data)
         setIsOpen(true);
     };
@@ -39,7 +40,7 @@ const MyReviews = () => {
     const onSubmit = async(data) => {
         selected.rating = data.rating;
         selected.comment = data.comment;
-        const res = await axiosSecure.put(`/reviews/${selected._id}`, selected);
+        const res = await axiosSecure.patch(`/reviews/${selected._id}`, selected);
         if(res.data.modifiedCount > 0){
             refetch();
             setIsOpen(false);

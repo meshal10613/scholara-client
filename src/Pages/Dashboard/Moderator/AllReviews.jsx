@@ -55,24 +55,26 @@ const AllReviews = () => {
             <div className="mx-auto p-4">
                 <h2 className="text-3xl font-semibold mb-6">All Reviews</h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10">
                     {allReviews.map((review) => (
-                    <div key={review._id} className="bg-white shadow-md rounded-xl p-4 space-y-3 w-88 mx-auto">
-                        <img
-                            src={review?.userImage}
-                            alt="Reviewer"
-                            className="w-12 h-12 mx-auto rounded-full object-cover"
-                        />
-                        <h3 className="text-xl font-bold">{review?.universityName}</h3>
+                    <div key={review._id} className="bg-white shadow-md rounded-xl p-4 space-y-3 w-88 xl:w-80 2xl:w-88 mx-auto flex flex-col justify-between">
+                        <div>
+                            <img
+                                src={review?.userImage}
+                                alt="Reviewer"
+                                className="w-12 h-12 mx-auto rounded-full object-cover"
+                            />
+                            <h3 className="text-xl font-bold">{review?.universityName}</h3>
 
-                        <div className="flex flex-col">
-                            <p className="text-gray-600">{review?.subject}</p>
-                            <p className="">{review?.userName}</p>
-                            <p className="text-gray-500">
-                            {review.reviewDate}
-                            </p>
-                            <p className="text-primary font-bold">{review?.rating}⭐</p>
-                            <p className="text-gray-700 italic">"{review?.comment}"</p>
+                            <div className="flex flex-col">
+                                <p className="text-gray-600">{review?.subject}</p>
+                                <p className="">{review?.userName}</p>
+                                <p className="text-gray-500">
+                                {review.reviewDate}
+                                </p>
+                                <p className="text-primary font-bold">{review?.rating}⭐</p>
+                                <p className="text-gray-700 italic">"{review?.comment}"</p>
+                            </div>
                         </div>
 
                         <button
