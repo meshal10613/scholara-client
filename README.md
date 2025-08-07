@@ -73,6 +73,70 @@ Scholara was created to simplify the process of finding and applying for scholar
 - `recharts`
 - `sweetalert2`
 
-<!-- ---
 
-## 📁 Project Structure (Optional) -->
+
+## 🚀 Scholara Project - Local Development Guide
+
+This guide will help you set up and run the project locally on your machine.
+
+---
+
+## ✅ Prerequisites
+
+Make sure the following tools are installed on your system:
+
+- [Node.js](https://nodejs.org/) (Recommended: LTS version)
+- npm (comes with Node.js) or [Yarn](https://yarnpkg.com/) (optional)
+- A code editor like [Visual Studio Code](https://code.visualstudio.com/)
+
+---
+
+### 1. Clone the Repository
+
+Clone the project to your local machine using Git:
+
+```bash
+git clone https://github.com/meshal10613/inlingo-client.git
+```
+
+### 2. Install Dependencies
+
+Using npm:
+
+```bash
+npm install
+```
+
+Or using yarn:
+
+```bash
+yarn start
+```
+
+### 3. Build for Production
+
+Build for Production
+
+```bash
+npm run build
+```
+
+## 💬 Contact
+For queries or support:
+
+- Email: syedmohiuddinmeshal24@gmail.com
+- GitHub: https://github.com/meshal10613
+
+
+```bash
+---
+
+Let me know if you want to:
+- Add environment variable setup instructions (`.env`)
+- Include backend (API) setup if you're integrating it
+- Convert for **Vite**, **Next.js**, or **React Native** projects
+
+I can tailor it perfectly to your exact stack.
+```
+
+<p align="center">Made with ❤️ by Syed Mohiuddin Meshal</p>
