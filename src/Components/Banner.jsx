@@ -30,6 +30,7 @@ const Banner = () => {
         buttonText: "Join Now",
         },
     ];
+
     return (
     <div className="w-full mx-auto my-10 overflow-hidden shadow-lg">
         <Carousel
@@ -37,7 +38,7 @@ const Banner = () => {
             autoPlay={true}
             showThumbs={false}
             showStatus={false}
-            interval={3000}
+            interval={2000}
             showArrows={false}
             dynamicHeight={false}
             transitionTime={200}
