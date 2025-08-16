@@ -14,14 +14,14 @@
 .navlinksm li a.active{
     color: #EBF4F6;
     border-radius: 24px;
-    background-color: #071952;
+    background-color: #088395;
 }
 
 .navlinklg li a.active{
-    border: 2px solid #088395;
+    /* border: 2px solid #088395; */
     color: #EBF4F6;
     border-radius: 24px;
-    background-color: #071952;
+    background-color: #088395;
 }
 
 .footlink li a.active{
