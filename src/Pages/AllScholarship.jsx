@@ -10,6 +10,7 @@ const AllScholarship = () => {
     const [itemsPerPage, setItemsPerPage] = useState(4);
     const [currentPage, setCurrentPage] = useState(0);
     const [count, setCount] = useState(0);
+    const [sortBy, setSortBy] = useState("");
     const numberOfPage = Math.ceil(count / itemsPerPage);
     //shortcut
     const pages = [...Array(numberOfPage).keys()];
@@ -25,9 +26,9 @@ const AllScholarship = () => {
 
     const axiosInstance = useAxios();
     const {data: scholarships = [], isLoading} = useQuery({
-        queryKey: ["scholarships", itemsPerPage, currentPage, search],
+        queryKey: ["scholarships", itemsPerPage, currentPage, search, sortBy],
         queryFn: async() => {
-            const res = await axiosInstance.get(`/scholarships?page=${currentPage}&size=${itemsPerPage}&search=${search}`);
+            const res = await axiosInstance.get(`/scholarships?page=${currentPage}&size=${itemsPerPage}&search=${search}&sort=${sortBy}`);
             return res.data;
         }
     });
@@ -58,22 +59,37 @@ const AllScholarship = () => {
     <div className="w-full mx-auto py-8">
         <h1 className="text-3xl font-bold mb-6 text-center">All Scholarships</h1>
 
-        {/* Search Box */}
-        <form onSubmit={handleSearch} className="flex items-center gap-4 mb-6 justify-center mx-5 md:mx-0">
-            <input
-            type="text"
-            name='search'
-            placeholder="Search by university, subject, or category..."
-            defaultValue={search}
-            className="input"
-            />
-            <button
-            className="btn border-none bg-secondary text-base-100"
-            type='submit'
-            >
-            Search
-            </button>
-        </form>
+        <div className='flex items-center justify-between'>
+            {/* Search Box */}
+            <form onSubmit={handleSearch} className="flex items-center gap-4 mb-6 justify-center mx-5 md:mx-0">
+                <input
+                type="text"
+                name='search'
+                placeholder="Search by university, subject, or category..."
+                defaultValue={search}
+                className="input"
+                />
+                <button
+                className="btn border-none bg-secondary text-base-100"
+                type='submit'
+                >
+                Search
+                </button>
+            </form>
+
+            <div className="">
+                <label className="mr-2 font-medium">Sort by:</label>
+                <select
+                className="border px-2 py-1 rounded"
+                onChange={(e) => setSortBy(e.target.value)}
+                value={sortBy}
+                >
+                    <option value="">Default</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                </select>
+            </div>
+        </div>
 
         {
             scholarships.length > 0 ? 

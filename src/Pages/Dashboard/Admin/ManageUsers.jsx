@@ -97,8 +97,8 @@ const ManageUsers = () => {
                 <div className='flex flex-col items-center justify-center gap-3 max-h-screen'>
                     <Lottie animationData={errorLogo} loop={true} className='w-98'/>
                 </div> :
-                <div className="overflow-x-auto overflow-y-hidden">
-                    <table className="table w-full">
+                <div className="overflow-x-auto">
+                    <table className="table w-full min-w-[600px] text-sm sm:text-base">
                     <thead className="bg-secondary text-base-100">
                         <tr>
                         <th>#</th>
