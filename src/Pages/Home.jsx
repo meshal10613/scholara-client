@@ -7,6 +7,7 @@ import Loading from '../Components/Loading';
 import HowItWorks from '../Components/HowItWorks';
 import FaqSection from '../Components/FaqSection';
 import NewsLetter from '../Components/NewsLetter';
+import Impact from '../Components/Impact';
 
 const Home = () => {
     const axiosInstance = useAxios();
@@ -25,6 +26,7 @@ const Home = () => {
     return (
         <div className=''>
             <Banner/>
+            <Impact/>
             <TopScholarship topS={topS}/>
             <HowItWorks/>
             <FaqSection/>
