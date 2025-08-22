@@ -17,7 +17,7 @@ export default function NewsLetter() {
     };
 
     return (
-        <div className='bg-white rounded-3xl flex flex-col md:flex-row items-center justify-around px-5 py-10'>
+        <div className='bg-white rounded-3xl flex flex-col md:flex-row items-center justify-around px-5 py-10 mx-2 md:mx-0'>
             <div>
                 <Lottie animationData={news} loop={true} className='w-98'/>
             </div>

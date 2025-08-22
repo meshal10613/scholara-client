@@ -8,6 +8,8 @@ import HowItWorks from '../Components/HowItWorks';
 import FaqSection from '../Components/FaqSection';
 import NewsLetter from '../Components/NewsLetter';
 import Impact from '../Components/Impact';
+import { Blog } from '../Components/Blog';
+import { Team } from '../Components/Team';
 
 const Home = () => {
     const axiosInstance = useAxios();
@@ -30,6 +32,8 @@ const Home = () => {
             <TopScholarship topS={topS}/>
             <HowItWorks/>
             <FaqSection/>
+            <Blog/>
+            <Team/>
             <NewsLetter/>
         </div>
     );

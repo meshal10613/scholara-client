@@ -26,7 +26,7 @@ const Impact = () => {
     ]
     return (
         <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10'>
+            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 my-10'>
                 {
                     impact.map((i) => (
                         <div key={i.id} className='w-52 h-36 mx-auto bg-white rounded-xl p-5 flex flex-col items-center justify-center gap-2'>
