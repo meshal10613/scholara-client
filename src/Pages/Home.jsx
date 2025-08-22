@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from '../Components/Loading';
 import HowItWorks from '../Components/HowItWorks';
 import FaqSection from '../Components/FaqSection';
+import NewsLetter from '../Components/NewsLetter';
 
 const Home = () => {
     const axiosInstance = useAxios();
@@ -27,6 +28,7 @@ const Home = () => {
             <TopScholarship topS={topS}/>
             <HowItWorks/>
             <FaqSection/>
+            <NewsLetter/>
         </div>
     );
 };
