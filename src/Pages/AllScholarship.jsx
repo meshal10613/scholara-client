@@ -94,10 +94,10 @@ const AllScholarship = () => {
         {
             scholarships.length > 0 ? 
             <div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 mx-5 md:mx-0">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mx-5 md:mx-0">
                     {
                         scholarships.map((sch) => (
-                            <div key={sch?._id} className="border-2 border-primary rounded-xl p-4 shadow hover:shadow-md transition duration-300">
+                            <div key={sch?._id} className="rounded-xl p-4 bg-white hover:shadow-md transition duration-300 w-80 mx-auto shadow-2xl">
                             <div className="flex flex-col items-center">
                                 <img src={sch?.universityImage} referrerPolicy='no-referrer' alt={sch?.universityName} className="w-fit h-40 object-contain rounded-xl" />
                                 <h2 className="text-xl font-semibold">{sch?.universityName}</h2>

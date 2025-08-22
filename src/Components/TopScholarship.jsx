@@ -8,7 +8,7 @@ const TopScholarship = ({topS}) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {topS.map((scholarship) => (
-                <div key={scholarship._id} className="card bg-white shadow-xl w-84 mx-auto">
+                <div key={scholarship._id} className="card bg-white shadow-xl w-80 mx-auto">
                     <figure className="px-4 pt-4">
                     <img
                         src={scholarship?.universityImage}
