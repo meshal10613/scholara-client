@@ -41,7 +41,7 @@ const Banner = () => {
             interval={2000}
             showArrows={false}
             dynamicHeight={false}
-            transitionTime={200}
+            transitionTime={500}
         >
             {slides.map((slide) => (
             <div key={slide.id} className="relative">

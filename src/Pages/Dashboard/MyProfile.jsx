@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import useUserRole from '../../Hooks/useUserRole';
 import AdminChart from './Admin/AdminChart';
 import useCountCollections from '../../Hooks/useCountCollections';
+import PaymentHistory from './Admin/PaymentHistory';
 
 const MyProfile = () => {
     const {user, signOutUser} = useAuthContext();
@@ -119,6 +120,14 @@ const MyProfile = () => {
                 <div className="mt-6">
                     <h2 className="text-3xl font-bold mb-6">Admin Stats Overview</h2>
                     <AdminChart data={data} />
+                </div>
+            }
+
+            {
+                role === "admin" &&
+                <div className="mt-6">
+                    <h2 className="text-3xl font-bold mb-6">Payment History</h2>
+                    <PaymentHistory/>
                 </div>
             }
         </div>
