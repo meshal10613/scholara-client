@@ -16,10 +16,20 @@ const Home = () => {
     const { data: topS = [], isLoading } = useQuery({
         queryKey: ["topS",],
         queryFn: async() => {
-            const res = await axiosInstance.get(`/topScholarship`);
+            const res = await axiosInstance.get(`/scholarships`);
             return res.data;
         }
     });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const scholarships = topS
+        ?.filter((item) => {
+            if (!item.applicationDeadline) return false;
+            const deadlineDate = new Date(item.applicationDeadline);
+            return deadlineDate >= today;
+        })
+        .slice(0, 8);
 
     if(isLoading){
         return <Loading/>;
@@ -29,12 +39,12 @@ const Home = () => {
         <div className=''>
             <Banner/>
             <Impact/>
-            <TopScholarship topS={topS}/>
+            <TopScholarship topS={scholarships}/>
             <HowItWorks/>
             <FaqSection/>
             <Blog/>
             <Team/>
-            <NewsLetter/>
+            {/* <NewsLetter/> */}
         </div>
     );
 };

@@ -45,7 +45,7 @@ const Banner = () => {
         >
             {slides.map((slide) => (
             <div key={slide.id} className="relative">
-                <img src={slide.image} alt={slide.heading} className="object-cover h-[50vh] lg:h-[65vh] w-full" />
+                <img src={slide.image} alt={slide.heading} className="object-cover h-[40vh] md:h-[50vh] lg:h-[65vh] xl:h-[75vh] w-full" />
                 <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-start px-10 text-white">
                 <h2 className="text-3xl md:text-5xl font-bold">{slide.heading}</h2>
                 <p className="mt-4 text-lg md:text-xl">{slide.subtext}</p>
