@@ -32,7 +32,7 @@ const Banner = () => {
     ];
 
     return (
-    <div className="w-full mx-auto my-10 overflow-hidden shadow-lg">
+    <div className="container max-w-7xl mx-auto my-10 overflow-hidden shadow-lg">
         <Carousel
             infiniteLoop={true}
             autoPlay={true}
