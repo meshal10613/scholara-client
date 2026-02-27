@@ -1,3 +1,4 @@
+import { LayoutDashboard } from "lucide-react";
 import React from "react";
 import {
     BarChart,
@@ -57,7 +58,8 @@ const AdminChart = ({ data }) => {
         <div className="w-full bg-white p-6 rounded-3xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
             {/* Header Section */}
             <div className="flex flex-col mb-8">
-                <h3 className="text-xl font-bold text-slate-800">
+                <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <LayoutDashboard className="w-5 h-5 text-indigo-500" />{" "}
                     Platform Overview
                 </h3>
                 <p className="text-sm text-slate-500">
@@ -127,7 +129,10 @@ const AdminChart = ({ data }) => {
             {/* Bottom Summary Tags (Optional but good for UX) */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-50">
                 {chartData.map((item) => (
-                    <div key={item.name} className="flex flex-col items-center justify-center">
+                    <div
+                        key={item.name}
+                        className="flex flex-col items-center justify-center"
+                    >
                         <span className="text-[11px] text-slate-400 uppercase font-bold tracking-widest">
                             {item.name}
                         </span>
