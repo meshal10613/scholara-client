@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/scholarshipDetails/:id",
-                element: <PrivetRoute><ScholarshipDetails/></PrivetRoute>
+                element: <ScholarshipDetails/>
             },
             {
                 path: "/applyScholarship/:id",

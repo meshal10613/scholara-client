@@ -255,10 +255,10 @@ const Navbar = () => {
                         ) : (
                             <div className="flex items-center gap-2">
                                 <Link
-                                    to="/login"
+                                    to="/register"
                                     className="btn btn-ghost text-accent hover:bg-white/10 hidden sm:flex"
                                 >
-                                    Sign In
+                                    Register
                                 </Link>
                                 <Link
                                     to="/login"
